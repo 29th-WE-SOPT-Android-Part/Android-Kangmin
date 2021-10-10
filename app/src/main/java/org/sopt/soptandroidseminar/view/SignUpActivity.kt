@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import org.sopt.soptandroidseminar.R
 import org.sopt.soptandroidseminar.databinding.ActivitySignUpBinding
 
 class SignUpActivity : AppCompatActivity() {
@@ -34,7 +32,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun successSignUp() {
-        var intent = Intent()
+        val intent = Intent()
         intent.putExtra("userId", binding.editId.text.toString())
         intent.putExtra("userPw", binding.editPw.text.toString())
         setResult(Activity.RESULT_OK, intent)
