@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">SoptAndroidSeminar</string>
+    <string name="title">SOPTHub</string>
+    <string name="login">로그인</string>
+    <string name="sign_up">회원가입</string>
+    <string name="name">이름</string>
+    <string name="write_name">이름을 입력해주세요</string>
+    <string name="id">아이디</string>
+    <string name="write_id">아이디를 입력해주세요</string>
+    <string name="pw">비밀번호</string>
+    <string name="write_pw">비밀번호를 입력해주세요</string>
+    <string name="success_sign_up">회원가입 완료</string>
+    <string name="my_name">이강민</string>
+    <string name="age">나이</string>
+    <string name="my_age">26</string>
+    <string name="mbti">MBTI</string>
+    <string name="my_mbti">ESFJ</string>
+    <string name="introduce">안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n안녕하세요 이강민입니다~~~\n</string>
 </resources>
