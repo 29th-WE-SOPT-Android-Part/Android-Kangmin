@@ -50,9 +50,8 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkInputText(): Boolean {
-        return binding.editId.text.isNullOrBlank() || binding.editPw.text.isNullOrBlank()
-    }
+    private fun checkInputText(): Boolean =
+        binding.editId.text.isNullOrBlank() || binding.editPw.text.isNullOrBlank()
 
     private fun goToHomeActivity() {
         showToast("이강민님 환영합니다!")

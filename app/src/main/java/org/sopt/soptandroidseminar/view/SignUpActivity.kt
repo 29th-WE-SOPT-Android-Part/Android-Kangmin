@@ -27,14 +27,14 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkInputText(): Boolean {
-        return binding.editName.text.isNullOrBlank() || binding.editId.text.isNullOrBlank() || binding.editPw.text.isNullOrBlank()
-    }
+    private fun checkInputText(): Boolean =
+        binding.editName.text.isNullOrBlank() || binding.editId.text.isNullOrBlank() || binding.editPw.text.isNullOrBlank()
 
     private fun successSignUp() {
-        val intent = Intent()
-        intent.putExtra("userId", binding.editId.text.toString())
-        intent.putExtra("userPw", binding.editPw.text.toString())
+        val intent = Intent().apply {
+            putExtra("userId", binding.editId.text.toString())
+            putExtra("userPw", binding.editPw.text.toString())
+        }
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
