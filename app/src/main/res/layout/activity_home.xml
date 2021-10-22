@@ -29,14 +29,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
-        app:layout_constraintWidth_percent="0.4"
+        app:layout_constraintWidth_percent="0.3"
         tools:src="@drawable/github" />
 
     <TextView
         android:id="@+id/tv_name_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:text="@string/name"
         android:textColor="@color/black"
         app:layout_constraintHorizontal_bias="0.4"
@@ -58,7 +58,7 @@
         android:id="@+id/tv_age_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:text="@string/age"
         android:textColor="@color/black"
         app:layout_constraintHorizontal_bias="0.4"
@@ -80,7 +80,7 @@
         android:id="@+id/tv_mbti_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:text="@string/mbti"
         android:textColor="@color/black"
         app:layout_constraintHorizontal_bias="0.4"
@@ -99,13 +99,13 @@
         app:layout_constraintTop_toTopOf="@id/tv_mbti_title" />
 
     <ScrollView
+        android:id="@+id/scroll_content"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="20dp"
         android:layout_marginHorizontal="80dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@id/iv_github"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_mbti_title">
@@ -119,16 +119,53 @@
 
     </ScrollView>
 
-    <ImageView
-        android:id="@+id/iv_github"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_btn_list"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/github"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintWidth_percent="0.2" />
+        app:layout_constraintTop_toBottomOf="@id/scroll_content">
+
+        <Button
+            android:id="@+id/btn_follower_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/home_follower"
+            android:text="@string/follower_list"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btn_repo_list"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_repo_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/home_repo"
+            android:text="@string/repository_list"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/btn_follower_list"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="35dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_btn_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
