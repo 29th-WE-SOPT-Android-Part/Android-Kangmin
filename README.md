@@ -1,139 +1,171 @@
 # Android-Kangmin
 ![github_이강민_ver1-2](https://user-images.githubusercontent.com/70698151/135753336-a63f05c3-d45e-467f-9c0e-39fcb3f33cca.png)
-# Seminar 1
+# Seminar 2
 ## 실행화면
 <table>
-  <tr>
-    <td><img width="300" src="https://user-images.githubusercontent.com/56147398/136689293-36d07634-6b3e-4b80-b527-ed32969e0ea7.gif"></td>
-    <td><img width="300" src="https://user-images.githubusercontent.com/56147398/136689338-3fe06534-a919-49b7-ad63-c002c7d993a3.gif"></td>
-    <td><img width="300" src="https://user-images.githubusercontent.com/56147398/136689380-771ae349-58a5-4ae0-9361-6f662313cb26.gif"></td>
-  </tr>
-  <tr>
-    <td align="center"><b>SignUpActivity</b></td>
-    <td align="center"><b>SignInActivity</b></td>
-    <td align="center"><b>HomeActivity</b></td>
+    <td><img width="300" src="https://user-images.githubusercontent.com/56147398/138402829-b9b3a7bc-bd12-4764-aaac-c084ae88c1ba.gif"></td>
+    <td><img width="300" src="https://user-images.githubusercontent.com/56147398/138403692-bbb8279b-40ba-4d46-8f0a-4f9bf196a2d7.gif"></td>
+    <td><img width="300" src="https://user-images.githubusercontent.com/56147398/138404403-a0062cd4-9758-408d-a1c4-c50a0f0366ae.gif"></td>
   </tr>
 </table>
 
 ## Level 1
-- 회원가입, 로그인, 자기소개 페이지 구현
-### SignInActivity
+### Level 1-1
+- FollowerRecyclerView, RepoRecyclerView 구현
+### HomeActivity
 ```kotlin
-    private fun loginCheckEvent() {
-        binding.btnLogin.setOnClickListener {
-            if (checkInputText()) {
-                showToast("로그인 실패")
-            } else {
-                goToHomeActivity()
-            }
-        }
-    }
-    
-    private fun checkInputText(): Boolean {
-        return binding.editId.text.isNullOrBlank() || binding.editPw.text.isNullOrBlank()
+    private fun changeFragmentEvent() {
+        val followerListFragment = FollowerListFragment()
+        val repoListFragment = RepoListFragment()
+        supportFragmentManager.beginTransaction().add(R.id.fragment_list, followerListFragment)
+            .commit()
+
+        repoListChangeEvent(repoListFragment)
+        followerListChangeEvent(followerListFragment)
     }
 
-    private fun goToHomeActivity() {
-        showToast("이강민님 환영합니다!")
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-```
-모든 입력이 되어있지 않을시 로그인 실패 출력, 되어 있으면 HomeAcitivity로 화면 전환
-### SignUpActivity
-```kotlin
-    private fun signUpButtonClickEvent() {
-        binding.btnSignUpSuccess.setOnClickListener {
-            if (checkInputText()) {
-                showToast("입력되지 않은 정보가 있습니다")
-            } else {
-                successSignUp()
-            }
+    private fun repoListChangeEvent(repoListFragment: RepoListFragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        binding.btnRepoList.setOnClickListener {
+            transaction.replace(R.id.fragment_list, repoListFragment)
+            transaction.commit()
         }
     }
 
-    private fun checkInputText(): Boolean {
-        return binding.editName.text.isNullOrBlank() || binding.editId.text.isNullOrBlank() || binding.editPw.text.isNullOrBlank()
+    private fun followerListChangeEvent(followerListFragment: FollowerListFragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        binding.btnFollowerList.setOnClickListener {
+            transaction.replace(R.id.fragment_list, followerListFragment)
+            transaction.commit()
+        }
     }
 ```
+각각의 버튼을 눌렀을때 알맞은 RecyclerView가 있는 Fragment로 전환
+
+### item_follower_list.xml
+```xml
+    <TextView
+        android:id="@+id/follow_user_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/follow_user_image"
+        app:layout_constraintTop_toTopOf="@id/follow_user_image"
+        tools:text="userId" />
+```
+`ellipsize`와 `maxLines`를 사용하여 글자수가 일정길이 이상이 되었을 때 ...으로 보이게 구현
+
+### Level 1-2
+### RepoListFragment
+```kotlin
+binding.recyclerRepoList.layoutManager = GridLayoutManager(requireContext(), 2)
+```
+RepoListFragment의 RecyclerView는 GridLayout으로 구현
+
 ## Level 2
 ### Level 2-1
+### FollowerListFragment
 ```kotlin
-    private val signUpActivityLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) {
-        if (it.resultCode == Activity.RESULT_OK) {
-            val id = it.data?.getStringExtra("userId")
-            val pw = it.data?.getStringExtra("userPw")
+    private fun configureClickEvent() {
+        adapter.setItemClickListener(object : FollowerListAdapter.ItemClickListener {
+            override fun onClick(data: ResponseUserInfo) {
+                var githubId = data.login
+                var githubUrl = data.repos_url
+                var githubImage = data.avatar_url
+                showDetailActivity(githubId, githubUrl, githubImage)
+            }
+        })
+    }
 
-            binding.editId.setText(id)
-            binding.editPw.setText(pw)
-
+    private fun showDetailActivity(githubId: String, githubUrl: String, githubImage: String) {
+        val intent = Intent(requireContext(), DetailActivity::class.java).apply {
+            putExtra("githubId", githubId)
+            putExtra("githubUrl", githubUrl)
+            putExtra("githubImage", githubImage)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
+        startActivity(intent)
     }
 ```
-```kotlin
-    private fun successSignUp() {
-        val intent = Intent()
-        intent.putExtra("userId", binding.editId.text.toString())
-        intent.putExtra("userPw", binding.editPw.text.toString())
-        setResult(Activity.RESULT_OK, intent)
-        finish()
-    }
-```
-`registerForActivityResult`와 `putExtra`, `Intent`를 이용한 회원가입 성공 후 데이터 전달 및 화면 이동 구현
+RecyclerViewAdapter에 setItemClickListener 추가하여 리스트별 클릭 이벤트 구현 및 화면전환 시 데이터 넘겨줌
 ### Level 2-2
-```kotiln
-    private fun goToGithub() {
-        binding.ivGithub.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/kkk5474096"))
-            startActivity(intent)
-        }
+### FollowerListFragment
+```kotlin
+    private fun recyclerViewDecoration() {
+        val spaceDecoration = VerticalItemDecoration(10)
+        val dividerItemDecoration =
+            DividerItemDecoration(
+                binding.recyclerFollowerList.context,
+                LinearLayoutManager(requireContext()).orientation
+            )
+        binding.recyclerFollowerList.addItemDecoration(dividerItemDecoration)
+        binding.recyclerFollowerList.addItemDecoration(spaceDecoration)
+    }
 ```
-암시적 인텐트를 활용한 깃허브 페이지 이동<br><br>
-
-#### 명시적/암시적 인텐트
-- 명시적 인텐트 : 특정 컴포넌트나 액티비티가 명확하게 실행되어야할 경우에 사용, 패키지 내부의 액티비티를 실행할 때만 사용
-- 암시적 인텐트 : 명시적 인텐트와는 다르게 어떤 의도만으로 원하는 컴포넌트를 실행할 수 있다, 클래스명이나 패키지명을 넣지 않는다.
+ItemDecoration 활용하여 리스트 간 간격과 구분선 표시
 
 ### Level 2-3
-```xml
-    <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="80dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="10dp"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@id/iv_github"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_mbti_title">
-
-        <TextView
-            android:id="@+id/tv_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/introduce" />
-
-    </ScrollView>
+```kotlin
+private fun myFollowList() {
+        recyclerViewDecoration()
+        binding.recyclerFollowerList.layoutManager = LinearLayoutManager(requireContext())
+        val callback = MyTouchHelperCallback(adapter)
+        val touchHelper = ItemTouchHelper(callback)
+        touchHelper.attachToRecyclerView(binding.recyclerFollowerList)
+        binding.recyclerFollowerList.adapter = adapter
+        adapter.startDrag(object : FollowerListAdapter.OnStartDragListener {
+            override fun onStartDrag(viewHolder: FollowerListAdapter.FollowerUserViewHolder) {
+                touchHelper.startDrag(viewHolder)
+            }
+        })
+        userFollowingList()
+    }
 ```
-```xml
-    <ImageView
-        android:id="@+id/iv_profile"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
-        app:layout_constraintWidth_percent="0.4"
-        tools:src="@drawable/github" />
-```
-`ScrollView`를 사용하여 텍스트가 길어질 시 뷰가 스크롤 가능하게 구현<br>
-`constraintDimensionRatio`를 사용하여 사진 비유를 1:1로 맞춤
+`ItemTouchHelper.Callback` 클래스 생성후 활용하여 RecyclerView Item 이동 및 삭제 구현
 
-- 느낌점 : 한번 더 공부하면서 알고 있던 내용을 확실 시 할 수 있었다.
+## Level 3
+### Level 3-2
+### MyDiffUtil
+```kotlin
+class MyDiffUtil<RepoInfo>(
+    private val oldItems: List<RepoInfo>,
+    private val newItems: List<RepoInfo>
+) : DiffUtil.Callback() {
+    override fun getOldListSize(): Int = oldItems.size
+    override fun getNewListSize(): Int = newItems.size
+
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        val oldItem = oldItems[oldItemPosition]
+        val newItem = newItems[newItemPosition]
+
+        return oldItem.hashCode() == newItem.hashCode()
+
+    }
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        val oldItem = oldItems[oldItemPosition]
+        val newItem = newItems[newItemPosition]
+
+        return oldItem == newItem
+    }
+}
+```
+### FollowerListAdapter
+```kotlin
+    fun setItems(newItems: List<ResponseUserInfo>) {
+        val diffUtil = MyDiffUtil(userList, newItems)
+        val diffResult = DiffUtil.calculateDiff(diffUtil)
+
+        userList.clear()
+        userList.addAll(newItems)
+        diffResult.dispatchUpdatesTo(this)
+    }
+```
+notifyDataSetChanged를 사용하면 리스트 내의 데이터가 바뀌었을때 모든 리스트를 다 바꿔야해서 아이템들이 많다면 지연시간도 길어지고 비효율적일수 밖에 없다. 그래서 MyDiffUtil 클래스를 만들고 DiffUtil을 사용하여 현재 리스트와 교체될 리스트를 비교하고 바꿔야할 리스트만 바꿔줌으로써 notifyDataSetChanged보다 효율적인 데이터 교환을 할 수 있게 함.
+
+- 배운 내용 : DiffUtil을 사용하여 데이터 교환을 할 수 있게 하는 방법은 알았으나 백그라운드에서 calculateDiff를 처리하는 방법에 대해 계속해서 공부하고 있다.
