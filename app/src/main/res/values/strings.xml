@@ -1,23 +1,22 @@
 <resources>
     <string name="app_name">SoptAndroidSeminar</string>
-    <string name="title">SOPTHub</string>
+    <string name="title">GitHub</string>
     <string name="login">로그인</string>
     <string name="sign_up">회원가입</string>
     <string name="name">이름</string>
-    <string name="write_name">이름을 입력해주세요</string>
-    <string name="id">아이디</string>
-    <string name="write_id">아이디를 입력해주세요</string>
+    <string name="write_name">이름을 입력해주세요.</string>
+    <string name="id">깃허브 아이디</string>
+    <string name="write_id">깃허브 아이디를 입력해주세요.</string>
     <string name="pw">비밀번호</string>
-    <string name="write_pw">비밀번호를 입력해주세요</string>
+    <string name="write_pw">비밀번호를 입력해주세요.</string>
     <string name="success_sign_up">회원가입 완료</string>
     <string name="my_name">이강민</string>
-    <string name="age">나이</string>
-    <string name="my_age">26</string>
-    <string name="mbti">MBTI</string>
-    <string name="my_mbti">ESFJ</string>
+    <string name="my_id">leekangmin</string>
     <string name="introduce">안녕하세요 이강민입니다~~~</string>
-    <string name="follower_list">팔로워\n목록</string>
-    <string name="repository_list">레포지토리\n목록</string>
+    <string name="follower_list">팔로워 목록</string>
+    <string name="repository_list">레포지토리 목록</string>
     <string name="repository_url_title">GitHub Repository URL</string>
     <string name="repository_url">URL</string>
+    <string name="image_camera">사진을 첨부해주세요</string>
+    <string name="image_camera_import">첨부하기</string>
 </resources>

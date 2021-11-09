@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_profile"
+        android:icon="@drawable/union"
+        android:title="프로필" />
+
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@drawable/vector_3__stroke_"
+        android:title="홈" />
+
+    <item
+        android:id="@+id/menu_camera"
+        android:icon="@drawable/vector"
+        android:title="카메라" />
+</menu>

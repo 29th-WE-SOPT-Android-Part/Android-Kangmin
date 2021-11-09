@@ -21,7 +21,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun goToSignUpActivity() {
-        binding.btnRegister.setOnClickListener {
+        binding.tvRegister.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             signUpActivityLauncher.launch(intent)
         }
@@ -55,7 +55,7 @@ class SignInActivity : AppCompatActivity() {
 
     private fun goToHomeActivity() {
         showToast("이강민님 환영합니다!")
-        val intent = Intent(this, HomeActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }
