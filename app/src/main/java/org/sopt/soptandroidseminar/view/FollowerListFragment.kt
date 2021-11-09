@@ -2,7 +2,6 @@ package org.sopt.soptandroidseminar.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import org.sopt.soptandroidseminar.api.data.response.ResponseUserInfo
 import org.sopt.soptandroidseminar.databinding.FragmentFollwerListBinding
 import org.sopt.soptandroidseminar.util.MyTouchHelperCallback
 import org.sopt.soptandroidseminar.util.VerticalItemDecoration
-import java.text.FieldPosition
 
 class FollowerListFragment : Fragment() {
 
