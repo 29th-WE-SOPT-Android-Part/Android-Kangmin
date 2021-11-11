@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import org.sopt.soptandroidseminar.api.SoptServiceCreator
+import org.sopt.soptandroidseminar.api.ApiServiceCreator
 import org.sopt.soptandroidseminar.api.data.request.RequestSignUp
 import org.sopt.soptandroidseminar.databinding.ActivitySignUpBinding
 
@@ -35,7 +35,7 @@ class SignUpActivity : AppCompatActivity() {
             name = binding.editName.text.toString(),
             password = binding.editPw.text.toString()
         )
-        val call = SoptServiceCreator.apiService.postSignUp(requestSignUpData)
+        val call = ApiServiceCreator.soptApiService.postSignUp(requestSignUpData)
 
         call.enqueueUtil(
             onSuccess = {

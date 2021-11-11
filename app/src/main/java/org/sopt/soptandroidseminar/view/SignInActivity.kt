@@ -5,7 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
-import org.sopt.soptandroidseminar.api.SoptServiceCreator
+import org.sopt.soptandroidseminar.api.ApiServiceCreator
 import org.sopt.soptandroidseminar.api.data.request.RequestLogin
 import org.sopt.soptandroidseminar.databinding.ActivitySignInBinding
 
@@ -43,7 +43,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun loginRequest(requestLogin: RequestLogin) {
-        val call = SoptServiceCreator.apiService.getLoginInfo(requestLogin)
+        val call = ApiServiceCreator.soptApiService.getLoginInfo(requestLogin)
 
         call.enqueueUtil(
             onSuccess = {

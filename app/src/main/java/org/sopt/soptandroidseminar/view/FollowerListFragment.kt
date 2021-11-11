@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.sopt.soptandroidseminar.adapter.FollowerListAdapter
-import org.sopt.soptandroidseminar.api.GithubServiceCreator
+import org.sopt.soptandroidseminar.api.ApiServiceCreator
 import org.sopt.soptandroidseminar.api.data.response.ResponseUserInfo
 import org.sopt.soptandroidseminar.databinding.FragmentFollwerListBinding
 import org.sopt.soptandroidseminar.util.MyTouchHelperCallback
@@ -53,7 +53,7 @@ class FollowerListFragment : Fragment() {
     }
 
     private fun userFollowingList() {
-        val call = GithubServiceCreator.apiService.getFollowingInfo()
+        val call = ApiServiceCreator.githubApiService.getFollowingInfo()
 
         call.enqueueUtil(
             onSuccess = {
