@@ -39,7 +39,7 @@ class SignUpActivity : AppCompatActivity() {
 
         call.enqueueUtil(
             onSuccess = {
-                successSignUp(it.data.name)
+                it.data?.let { it1 -> successSignUp(it1.name) }
             },
             onError = {
                 showToast("회원가입에 실패하였습니다.")

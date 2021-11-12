@@ -1,7 +1,8 @@
 package org.sopt.soptandroidseminar.api.data.response
 
-data class ResponseSignUp(
+data class ResponseSignIn(
     val email: String,
     val id: Int,
     val name: String,
+    val password: Int
 )

@@ -47,7 +47,7 @@ class SignInActivity : AppCompatActivity() {
 
         call.enqueueUtil(
             onSuccess = {
-                goToHomeActivity(it.data.name)
+                it.data?.let { it1 -> goToHomeActivity(it1.name) }
             },
             onError = {
                 showToast("로그인에 실패하였습니다.")
