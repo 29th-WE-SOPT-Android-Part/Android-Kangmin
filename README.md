@@ -1,203 +1,141 @@
 # Android-Kangmin
 ![github_이강민_ver1-2](https://user-images.githubusercontent.com/70698151/135753336-a63f05c3-d45e-467f-9c0e-39fcb3f33cca.png)
-# Seminar 3
+# Seminar 4
 ## 실행화면
 <table>
-    <td><img width="300" src="https://user-images.githubusercontent.com/56147398/139576693-ebca96b2-978c-4dba-b2f6-701fbd3d2bca.gif"></td>
-    <td><img width="300" src="https://user-images.githubusercontent.com/56147398/139576718-5cc57742-a9fc-435a-917b-01c74e5ad477.gif"></td>
-    <td><img width="300" src="https://user-images.githubusercontent.com/56147398/139576742-20c5b6de-657f-4c1d-b6c7-3a4f2bcf8040.gif"></td>
+    <td><img width="300" src="https://user-images.githubusercontent.com/56147398/141430046-b71c53ef-facb-4950-9224-42855d81cb71.gif"></td>
+    <td><img width="300" src="https://user-images.githubusercontent.com/56147398/141430079-46134da3-5294-4c4f-8561-b03a5026ce47.gif"></td>
   </tr>
 </table>
 
-## Level 1
-- 디자인 적용
-### activity_sign_in.xml
-```xml
-    <EditText
-        android:id="@+id/edit_id"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/selector_edit"
-        android:hint="@string/write_id"
-        android:padding="15dp"
-        android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_id" />
-```
-### selector_edit.xml
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/shape_edit" android:state_focused="true" />
-    <item android:drawable="@drawable/shape_unselect_edit" android:state_focused="false" />
-</selector>
-```
-EditText에 selector 활용 및 디자인 적용
+### 과제 완료 : Level 1 & Level 2-1 & Level 2-2 & Level 2-3
 
-## Level 2
-### Level 2-1
-### NestedScrollableHost.kt
+## Level 1 & Level 2-1, Level 2-2
+### 회원가입 TEST
+<img width="650" src="https://user-images.githubusercontent.com/56147398/141431203-c39c04e0-251c-4153-a1dc-6568413ebd98.png">
+
+
+### 로그인 TEST
+<img width="650" src="https://user-images.githubusercontent.com/56147398/141431234-3b4d36af-042b-4afb-b1eb-175c926213a5.png">
+
+### RequestLogin & RequestSignUp
 ```kotlin
-class NestedScrollableHost : FrameLayout {
-    constructor(context: Context) : super(context)
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
+data class RequestLogin(
+    val email: String,
+    val password: String
+)
 
-    private var touchSlop = 0
-    private var initialX = 0f
-    private var initialY = 0f
-    private val parentViewPager: ViewPager2?
-        get() {
-            var v: View? = parent as? View
-            while (v != null && v !is ViewPager2) {
-                v = v.parent as? View
-            }
-            return v as? ViewPager2
-        }
+data class RequestSignUp(
+    val email: String,
+    val name: String,
+    val password: String
+)
+```
 
-    private val child: View? get() = if (childCount > 0) getChildAt(0) else null
+### GithubApiService & SoptApiService
+```kotlin
+interface GithubApiService {
+    @GET("users/kkk5474096/repos")
+    fun reposForUser(): Call<List<ResponseRepoInfo>>
 
-    init {
-        touchSlop = ViewConfiguration.get(context).scaledTouchSlop
-    }
+    @GET("users/kkk5474096")
+    fun getUserInfo(): Call<ResponseUserInfo>
 
-    private fun canChildScroll(orientation: Int, delta: Float): Boolean {
-        val direction = -delta.sign.toInt()
-        return when (orientation) {
-            0 -> child?.canScrollHorizontally(direction) ?: false
-            1 -> child?.canScrollVertically(direction) ?: false
-            else -> throw IllegalArgumentException()
-        }
-    }
+    @GET("users/kkk5474096/followers")
+    fun getFollowingInfo(): Call<List<ResponseUserInfo>>
+}
 
-    override fun onInterceptTouchEvent(e: MotionEvent): Boolean {
-        handleInterceptTouchEvent(e)
-        return super.onInterceptTouchEvent(e)
-    }
+interface SoptApiService {
+    @POST("user/signup")
+    fun postSignUp(@Body body: RequestSignUp): Call<ResponseWrapper<ResponseSignUp>>
 
-    private fun handleInterceptTouchEvent(e: MotionEvent) {
-        val orientation = parentViewPager?.orientation ?: return
-
-        if (!canChildScroll(orientation, -1f) && !canChildScroll(orientation, 1f)) {
-            return
-        }
-
-        if (e.action == MotionEvent.ACTION_DOWN) {
-            initialX = e.x
-            initialY = e.y
-            parent.requestDisallowInterceptTouchEvent(true)
-        } else if (e.action == MotionEvent.ACTION_MOVE) {
-            val dx = e.x - initialX
-            val dy = e.y - initialY
-            val isVpHorizontal = orientation == ORIENTATION_HORIZONTAL
-
-            val scaledDx = dx.absoluteValue * if (isVpHorizontal) .5f else 1f
-            val scaledDy = dy.absoluteValue * if (isVpHorizontal) 1f else .5f
-
-            if (scaledDx > touchSlop || scaledDy > touchSlop) {
-                if (isVpHorizontal == (scaledDy > scaledDx)) {
-                    parent.requestDisallowInterceptTouchEvent(false)
-                } else {
-                    if (canChildScroll(orientation, if (isVpHorizontal) dx else dy)) {
-                        parent.requestDisallowInterceptTouchEvent(true)
-                    } else {
-                        parent.requestDisallowInterceptTouchEvent(false)
-                    }
-                }
-            }
-        }
-    }
+    @POST("user/login")
+    fun getLoginInfo(@Body body: RequestLogin): Call<ResponseWrapper<ResponseLogin>>
 }
 ```
-### fragment_home.xml
-```xml
-    <org.sopt.soptandroidseminar.util.NestedScrollableHost
-        android:id="@+id/layout_follow"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tl_follow">
+Gibhub Api 연동해서 Follower 리스트 연동 완료 & Sopt Api 연동해서 로그인 완료
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vp_follow"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </org.sopt.soptandroidseminar.util.NestedScrollableHost>
-```
-ViewPager2 중첩 스크롤 문제 해결하기 위한 NestedScrollableHost 구현
-### Level 2-2
-### FollowerListAdapter.kt
+### ApiServiceCreator
 ```kotlin
-    inner class FollowerUserViewHolder(
-        private val binding: ItemFollowerListBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(followerUserInfo: ResponseUserInfo, position: Int) {
-            binding.followUserName.text = followerUserInfo.login
-            binding.followUserContent.text = followerUserInfo.repos_url
-            Glide.with(itemView.context).load(followerUserInfo.avatar_url).circleCrop()
-                .into(binding.followUserImage)
+object ApiServiceCreator {
+    private val gson = GsonBuilder().setLenient().create()
+    private const val BASE_URL_SOPT = "https://asia-northeast3-we-sopt-29.cloudfunctions.net/api/"
+    private const val BASE_URL_GITHUB = "https://api.github.com/"
 
-            itemView.setOnClickListener {
-                itemClickListener.onClick(userList[position])
-            }
+    private val soptRetrofit: Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL_SOPT)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .build()
+
+    private val githubRetrofit: Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL_GITHUB)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .build()
+
+    private fun provideOkHttpClient(
+        interceptor: AppInterceptor
+    ): OkHttpClient = OkHttpClient.Builder()
+        .run {
+            addInterceptor(interceptor)
+            build()
         }
-    }
-```
-리스트에 각기 다른 이미지를 구현하기위한 코드 구현, 서버 통신으로 리스트 추가
-## Level 3
-### Level 3-2
-### CameraFragment.kt
-```kotlin
-class CameraFragment : Fragment() {
-    private var _binding: FragmentCameraBinding? = null
-    private val binding get() = _binding!!
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentCameraBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        buttonEvent()
+    class AppInterceptor : Interceptor {
+        @Throws(IOException::class)
+        override fun intercept(chain: Interceptor.Chain)
+                : Response = with(chain) {
+            val newRequest = request().newBuilder()
+                .addHeader("Content-Type", "application/json")
+                .build()
 
-    }
-
-    private fun buttonEvent() {
-        binding.btnCamera.setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.type = "image/*"
-            filterActivityLauncher.launch(intent)
+            proceed(newRequest)
         }
     }
 
-    private val filterActivityLauncher: ActivityResultLauncher<Intent> =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == RESULT_OK && it.data != null) {
-                var currentImageUri = it.data?.data
-                Glide.with(requireActivity()).load(currentImageUri).into(binding.imageCamera)
-
-            } else if (it.resultCode == RESULT_CANCELED) {
-                requireActivity().showToast("사진 선택 취소")
-            } else {
-                Log.d("ActivityResult", "something wrong")
-            }
-        }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+    val soptApiService: SoptApiService = soptRetrofit.create(SoptApiService::class.java)
+    val githubApiService: GithubApiService = githubRetrofit.create(GithubApiService::class.java)
 }
 ```
-Intent를 이용한 갤러리 접근, 사진 데이터를 uri형식으로 받아온 후 Glide로 이미지로 보여줌
+OkHttp3 와 Retrofit2를 활용하여 겹치는 헤더 사용 해결 및 서버 연동
 
+### Level 2-3
 
-- 배운 내용 : 중첩 스크롤 문제를 해결하기 위해 NestedScrollableHost를 구현하여 중첩 문제를 해결하는 방법을 배울 수 있었다.
+### ResponseWrapper
+```kotlin
+data class ResponseWrapper<T>(
+    val status: Int,
+    val success: Boolean,
+    val message: String,
+    val data: T? = null
+)
+```
+
+### ResponseSignUp & ResponseLogin
+```kotlin
+data class ResponseSignUp(
+    val email: String,
+    val id: Int,
+    val name: String,
+)
+
+data class ResponseLogin(
+    val email: String,
+    val id: Int,
+    val name: String,
+    val password: Int
+)
+```
+
+### SoptApiService
+```kotlin
+interface SoptApiService {
+    @POST("user/signup")
+    fun postSignUp(@Body body: RequestSignUp): Call<ResponseWrapper<ResponseSignUp>>
+
+    @POST("user/login")
+    fun getLoginInfo(@Body body: RequestLogin): Call<ResponseWrapper<ResponseLogin>>
+}
+```
+Wrapper 클래스를 사용하여 중복되는 내용을 해결
+
+- 배운 내용 : OkHttp를 사용하여 중복되는 헤더를 계속해서 사용하는 문제를 해결할 수 있었다.
