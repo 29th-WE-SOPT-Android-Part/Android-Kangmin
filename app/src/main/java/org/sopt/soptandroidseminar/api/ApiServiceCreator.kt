@@ -45,6 +45,4 @@ object ApiServiceCreator {
 
     val soptApiService: SoptApiService = soptRetrofit.create(SoptApiService::class.java)
     val githubApiService: GithubApiService = githubRetrofit.create(GithubApiService::class.java)
-
-
 }
