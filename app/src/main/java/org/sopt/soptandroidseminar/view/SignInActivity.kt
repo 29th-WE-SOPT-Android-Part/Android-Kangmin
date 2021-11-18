@@ -5,7 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
-import org.sopt.soptandroidseminar.R
+import org.sopt.soptandroidseminar.api.ApiServiceCreator
+import org.sopt.soptandroidseminar.api.data.request.RequestLogin
 import org.sopt.soptandroidseminar.databinding.ActivitySignInBinding
 
 class SignInActivity : AppCompatActivity() {
@@ -32,9 +33,26 @@ class SignInActivity : AppCompatActivity() {
             if (checkInputText()) {
                 showToast("로그인 실패")
             } else {
-                goToHomeActivity()
+                val requestLogin = RequestLogin(
+                    email = binding.editId.text.toString(),
+                    password = binding.editPw.text.toString()
+                )
+                loginRequest(requestLogin)
             }
         }
+    }
+
+    private fun loginRequest(requestLogin: RequestLogin) {
+        val call = ApiServiceCreator.soptApiService.getLoginInfo(requestLogin)
+
+        call.enqueueUtil(
+            onSuccess = {
+                it.data?.let { it1 -> goToHomeActivity(it1.name) }
+            },
+            onError = {
+                showToast("로그인에 실패하였습니다.")
+            }
+        )
     }
 
     private val signUpActivityLauncher = registerForActivityResult(
@@ -53,8 +71,8 @@ class SignInActivity : AppCompatActivity() {
     private fun checkInputText(): Boolean =
         binding.editId.text.isNullOrBlank() || binding.editPw.text.isNullOrBlank()
 
-    private fun goToHomeActivity() {
-        showToast("이강민님 환영합니다!")
+    private fun goToHomeActivity(name: String) {
+        showToast("${name}님 환영합니다!")
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()

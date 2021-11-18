@@ -7,11 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
 import org.sopt.soptandroidseminar.adapter.FollowerListAdapter
 import org.sopt.soptandroidseminar.adapter.RepoListAdapter
-import org.sopt.soptandroidseminar.api.GithubServiceCreator
-import org.sopt.soptandroidseminar.databinding.FragmentFollwerListBinding
+import org.sopt.soptandroidseminar.api.ApiServiceCreator
 import org.sopt.soptandroidseminar.databinding.FragmentRepoListBinding
 import org.sopt.soptandroidseminar.util.MyTouchHelperCallback
 
@@ -49,7 +47,7 @@ class RepoListFragment : Fragment() {
     }
 
     private fun userFollowingList() {
-        val call = GithubServiceCreator.apiService.reposForUser()
+        val call = ApiServiceCreator.githubApiService.reposForUser()
         call.enqueueUtil(
             onSuccess = {
                 adapter.setItems(it)

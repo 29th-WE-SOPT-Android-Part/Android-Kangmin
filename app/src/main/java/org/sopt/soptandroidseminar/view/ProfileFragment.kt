@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import org.sopt.soptandroidseminar.R
-import org.sopt.soptandroidseminar.api.GithubServiceCreator
+import org.sopt.soptandroidseminar.api.ApiServiceCreator
 import org.sopt.soptandroidseminar.databinding.FragmentProfileBinding
-import org.sopt.soptandroidseminar.databinding.FragmentRepoListBinding
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
@@ -29,7 +28,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun profileImage() {
-        val call = GithubServiceCreator.apiService.getUserInfo()
+        val call = ApiServiceCreator.githubApiService.getUserInfo()
         call.enqueueUtil(
             onSuccess = {
                 Glide.with(this).load(it.avatar_url).circleCrop().into(binding.ivProfile)
