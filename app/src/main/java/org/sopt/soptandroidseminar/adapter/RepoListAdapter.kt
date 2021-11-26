@@ -64,11 +64,7 @@ class RepoListAdapter : RecyclerView.Adapter<RepoListAdapter.RepoViewHolder>(),
         private val binding: ItemRepoListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(gitHubRepoInfo: ResponseRepoInfo) {
-            binding.apply {
-                repoName.text = gitHubRepoInfo.name
-                repoContext.text = gitHubRepoInfo.description
-                repoLanguage.text = gitHubRepoInfo.language
-            }
+            binding.repo = gitHubRepoInfo
         }
     }
 
