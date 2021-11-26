@@ -65,10 +65,8 @@ class FollowerListAdapter : RecyclerView.Adapter<FollowerListAdapter.FollowerUse
         private val binding: ItemFollowerListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(followerUserInfo: ResponseUserInfo, position: Int) {
-            binding.followUserName.text = followerUserInfo.login
-            binding.followUserContent.text = followerUserInfo.repos_url
-            Glide.with(itemView.context).load(followerUserInfo.avatar_url).circleCrop()
-                .into(binding.followUserImage)
+
+            binding.user = followerUserInfo
 
             itemView.setOnClickListener {
                 itemClickListener.onClick(userList[position])
