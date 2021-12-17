@@ -33,5 +33,4 @@ class BoardingActivity: AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp() = findNavController(R.id.container_boarding).navigateUp()
-
 }
