@@ -19,4 +19,12 @@
     <string name="repository_url">URL</string>
     <string name="image_camera">사진을 첨부해주세요</string>
     <string name="image_camera_import">첨부하기</string>
+    <string name="onboard1">SOPTHub에 오신걸\n 환영합니다!</string>
+    <string name="onboard2">SOPTHub에서 즐거운 시간\n 보내시길 바랍니다!</string>
+    <string name="onboard3">SOPTHub를\n 시작해볼까요?</string>
+    <string name="onboard_next">다음으로</string>
+    <string name="onboard_start">시작하기</string>
+    <string name="setting">환경설정</string>
+    <string name="setting_login">자동로그인 해제</string>
+    <string name="auto_login">자동 로그인</string>
 </resources>
