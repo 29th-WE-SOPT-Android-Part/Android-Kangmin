@@ -1,4 +1,4 @@
-package org.sopt.soptandroidseminar.view
+package org.sopt.soptandroidseminar.view.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -8,6 +8,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.soptandroidseminar.api.ApiServiceCreator
 import org.sopt.soptandroidseminar.api.data.request.RequestLogin
 import org.sopt.soptandroidseminar.databinding.ActivitySignInBinding
+import org.sopt.soptandroidseminar.util.SOPTSharedPreferences
+import org.sopt.soptandroidseminar.view.enqueueUtil
+import org.sopt.soptandroidseminar.view.showToast
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignInBinding
@@ -19,12 +22,29 @@ class SignInActivity : AppCompatActivity() {
 
         goToSignUpActivity()
         loginCheckEvent()
+        autologinImageClickEvent()
+        initAutoLoginEvent()
     }
 
     private fun goToSignUpActivity() {
         binding.tvRegister.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             signUpActivityLauncher.launch(intent)
+        }
+    }
+
+    private fun autologinImageClickEvent() {
+        binding.btnAutoLogin.setOnClickListener {
+            binding.btnAutoLogin.isSelected = !binding.btnAutoLogin.isSelected
+            SOPTSharedPreferences.setAutoLogin(this, binding.btnAutoLogin.isSelected)
+        }
+    }
+
+    private fun initAutoLoginEvent() {
+        if (SOPTSharedPreferences.getAutoLogin(this)) {
+            showToast("자동 로그인")
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
 

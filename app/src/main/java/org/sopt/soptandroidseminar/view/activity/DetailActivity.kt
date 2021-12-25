@@ -1,4 +1,4 @@
-package org.sopt.soptandroidseminar.view
+package org.sopt.soptandroidseminar.view.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

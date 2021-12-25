@@ -1,4 +1,4 @@
-package org.sopt.soptandroidseminar.view
+package org.sopt.soptandroidseminar.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

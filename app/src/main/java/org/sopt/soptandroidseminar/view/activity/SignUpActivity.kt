@@ -1,4 +1,4 @@
-package org.sopt.soptandroidseminar.view
+package org.sopt.soptandroidseminar.view.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -7,6 +7,8 @@ import android.os.Bundle
 import org.sopt.soptandroidseminar.api.ApiServiceCreator
 import org.sopt.soptandroidseminar.api.data.request.RequestSignUp
 import org.sopt.soptandroidseminar.databinding.ActivitySignUpBinding
+import org.sopt.soptandroidseminar.view.enqueueUtil
+import org.sopt.soptandroidseminar.view.showToast
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding

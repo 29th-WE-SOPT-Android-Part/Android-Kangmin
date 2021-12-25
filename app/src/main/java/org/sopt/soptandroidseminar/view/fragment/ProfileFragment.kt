@@ -1,5 +1,6 @@
-package org.sopt.soptandroidseminar.view
+package org.sopt.soptandroidseminar.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import com.bumptech.glide.Glide
 import org.sopt.soptandroidseminar.R
 import org.sopt.soptandroidseminar.api.ApiServiceCreator
 import org.sopt.soptandroidseminar.databinding.FragmentProfileBinding
+import org.sopt.soptandroidseminar.view.activity.SettingActivity
+import org.sopt.soptandroidseminar.view.enqueueUtil
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
@@ -25,6 +28,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         profileImage()
         changeFragmentEvent()
+        settingEvent()
     }
 
     private fun profileImage() {
@@ -73,6 +77,13 @@ class ProfileFragment : Fragment() {
             }
             transaction.replace(R.id.fragment_list, followerListFragment)
             transaction.commit()
+        }
+    }
+
+    private fun settingEvent() {
+        binding.imageSetting.setOnClickListener {
+            val intent = Intent(requireActivity(), SettingActivity::class.java)
+            startActivity(intent)
         }
     }
 

@@ -1,4 +1,4 @@
-package org.sopt.soptandroidseminar.view
+package org.sopt.soptandroidseminar.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +12,7 @@ import org.sopt.soptandroidseminar.adapter.RepoListAdapter
 import org.sopt.soptandroidseminar.api.ApiServiceCreator
 import org.sopt.soptandroidseminar.databinding.FragmentRepoListBinding
 import org.sopt.soptandroidseminar.util.MyTouchHelperCallback
+import org.sopt.soptandroidseminar.view.enqueueUtil
 
 class RepoListFragment : Fragment() {
 

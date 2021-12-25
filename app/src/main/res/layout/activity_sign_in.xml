@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".view.SignInActivity">
+    tools:context=".view.activity.SignInActivity">
 
     <ImageView
         android:id="@+id/image_github"
@@ -29,6 +29,28 @@
         android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image_github" />
+    
+    <ImageButton
+        android:id="@+id/btn_auto_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/checkbox_selector"
+        app:layout_constraintRight_toLeftOf="@id/tv_auto_login"
+        app:layout_constraintTop_toTopOf="@id/tv_auto_login"
+        android:layout_marginEnd="5dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_auto_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/auto_login"
+        android:textSize="14sp"
+        android:fontFamily="@font/notosanskr_bold"
+        app:layout_constraintTop_toTopOf="@id/tv_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20dp"
+        />
 
     <EditText
         android:id="@+id/edit_id"

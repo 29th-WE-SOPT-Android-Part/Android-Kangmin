@@ -1,4 +1,4 @@
-package org.sopt.soptandroidseminar.view
+package org.sopt.soptandroidseminar.view.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,6 +15,8 @@ import org.sopt.soptandroidseminar.api.data.response.ResponseUserInfo
 import org.sopt.soptandroidseminar.databinding.FragmentFollwerListBinding
 import org.sopt.soptandroidseminar.util.MyTouchHelperCallback
 import org.sopt.soptandroidseminar.util.VerticalItemDecoration
+import org.sopt.soptandroidseminar.view.activity.DetailActivity
+import org.sopt.soptandroidseminar.view.enqueueUtil
 
 class FollowerListFragment : Fragment() {
 

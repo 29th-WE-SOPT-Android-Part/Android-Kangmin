@@ -1,11 +1,9 @@
-package org.sopt.soptandroidseminar.view
+package org.sopt.soptandroidseminar.view.fragment
 
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import org.sopt.soptandroidseminar.databinding.FragmentCameraBinding
-import org.sopt.soptandroidseminar.databinding.FragmentProfileBinding
+import org.sopt.soptandroidseminar.view.showToast
 
 class CameraFragment : Fragment() {
     private var _binding: FragmentCameraBinding? = null

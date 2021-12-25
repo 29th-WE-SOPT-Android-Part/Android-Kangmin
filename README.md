@@ -1,141 +1,128 @@
 # Android-Kangmin
 ![github_이강민_ver1-2](https://user-images.githubusercontent.com/70698151/135753336-a63f05c3-d45e-467f-9c0e-39fcb3f33cca.png)
-# Seminar 4
+# Seminar 7
 ## 실행화면
 <table>
-    <td><img width="300" src="https://user-images.githubusercontent.com/56147398/141430046-b71c53ef-facb-4950-9224-42855d81cb71.gif"></td>
-    <td><img width="300" src="https://user-images.githubusercontent.com/56147398/141430079-46134da3-5294-4c4f-8561-b03a5026ce47.gif"></td>
+    <td><img width="300" src="https://user-images.githubusercontent.com/56147398/146546541-3081de4b-8977-4352-808f-62e684c07f2e.gif"></td>
+    <td><img width="300" src="https://user-images.githubusercontent.com/56147398/146546597-9a360d8a-bc26-48d1-b7c6-1976820ed654.gif"></td>
+    <td><img width="300" src="https://user-images.githubusercontent.com/56147398/146546605-da9bb0bf-67ac-480b-bdd8-007325a16707.gif"></td>
   </tr>
 </table>
 
-### 과제 완료 : Level 1 & Level 2-1 & Level 2-2 & Level 2-3
+### 과제 완료 : Level 1-1 & Level 1-2 & Level 1-3 & Level 2-1 & Level 2-2
 
-## Level 1 & Level 2-1, Level 2-2
-### 회원가입 TEST
-<img width="650" src="https://user-images.githubusercontent.com/56147398/141431203-c39c04e0-251c-4153-a1dc-6568413ebd98.png">
+## Level 1-1
 
+### nav_boarding.xml
+```xml
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_boarding"
+    app:startDestination="@id/boardingFragment1">
 
-### 로그인 TEST
-<img width="650" src="https://user-images.githubusercontent.com/56147398/141431234-3b4d36af-042b-4afb-b1eb-175c926213a5.png">
-
-### RequestLogin & RequestSignUp
-```kotlin
-data class RequestLogin(
-    val email: String,
-    val password: String
-)
-
-data class RequestSignUp(
-    val email: String,
-    val name: String,
-    val password: String
-)
+    <fragment
+        android:id="@+id/boardingFragment1"
+        android:name="org.sopt.soptandroidseminar.view.fragment.BoardingFragment1"
+        android:label="첫번째 화면"
+        tools:layout="@layout/fragment_boarding1">
+        <action
+            android:id="@+id/action_boardingFragment1_to_boardingFragment2"
+            app:destination="@+id/boardingFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/boardingFragment2"
+        android:name="org.sopt.soptandroidseminar.view.fragment.BoardingFragment2"
+        android:label="두번째 화면"
+        tools:layout="@layout/fragment_boarding2">
+        <action
+            android:id="@+id/action_boardingFragment2_to_boardingFragment3"
+            app:destination="@+id/boardingFragment3"
+            app:popUpTo="@id/boardingFragment1"
+            app:popUpToInclusive="false"/>
+    </fragment>
+    <fragment
+        android:id="@+id/boardingFragment3"
+        android:name="org.sopt.soptandroidseminar.view.fragment.BoardingFragment3"
+        android:label="세번째 화면"
+        tools:layout="@layout/fragment_boarding3" />
+</navigation>
 ```
+네이게이션을 이용한 온보딩 완료
 
-### GithubApiService & SoptApiService
+## Level 1-2
+### SOPTSharedPreferences.kt
 ```kotlin
-interface GithubApiService {
-    @GET("users/kkk5474096/repos")
-    fun reposForUser(): Call<List<ResponseRepoInfo>>
+object SOPTSharedPreferences {
+    private const val STORAGE_KEY = "USER_AUTH"
+    private const val AUTO_LOGIN = "AUTO_LOGIN"
 
-    @GET("users/kkk5474096")
-    fun getUserInfo(): Call<ResponseUserInfo>
-
-    @GET("users/kkk5474096/followers")
-    fun getFollowingInfo(): Call<List<ResponseUserInfo>>
-}
-
-interface SoptApiService {
-    @POST("user/signup")
-    fun postSignUp(@Body body: RequestSignUp): Call<ResponseWrapper<ResponseSignUp>>
-
-    @POST("user/login")
-    fun getLoginInfo(@Body body: RequestLogin): Call<ResponseWrapper<ResponseLogin>>
-}
-```
-Gibhub Api 연동해서 Follower 리스트 연동 완료 & Sopt Api 연동해서 로그인 완료
-
-### ApiServiceCreator
-```kotlin
-object ApiServiceCreator {
-    private val gson = GsonBuilder().setLenient().create()
-    private const val BASE_URL_SOPT = "https://asia-northeast3-we-sopt-29.cloudfunctions.net/api/"
-    private const val BASE_URL_GITHUB = "https://api.github.com/"
-
-    private val soptRetrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL_SOPT)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .build()
-
-    private val githubRetrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL_GITHUB)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .build()
-
-    private fun provideOkHttpClient(
-        interceptor: AppInterceptor
-    ): OkHttpClient = OkHttpClient.Builder()
-        .run {
-            addInterceptor(interceptor)
-            build()
-        }
-
-    class AppInterceptor : Interceptor {
-        @Throws(IOException::class)
-        override fun intercept(chain: Interceptor.Chain)
-                : Response = with(chain) {
-            val newRequest = request().newBuilder()
-                .addHeader("Content-Type", "application/json")
-                .build()
-
-            proceed(newRequest)
-        }
+    fun getAutoLogin(context: Context) : Boolean {
+        val preferences = context.getSharedPreferences(STORAGE_KEY, Context.MODE_PRIVATE)
+        return preferences.getBoolean(AUTO_LOGIN, false)
+    }
+    fun setAutoLogin(context: Context, value: Boolean) {
+        val preferences = context.getSharedPreferences(STORAGE_KEY, Context.MODE_PRIVATE)
+        preferences.edit()
+            .putBoolean(AUTO_LOGIN, value)
+            .apply()
     }
 
-    val soptApiService: SoptApiService = soptRetrofit.create(SoptApiService::class.java)
-    val githubApiService: GithubApiService = githubRetrofit.create(GithubApiService::class.java)
+    fun setLogout(context: Context) {
+        val preferences = context.getSharedPreferences(STORAGE_KEY, Context.MODE_PRIVATE)
+        preferences.edit()
+            .remove(AUTO_LOGIN)
+            .clear()
+            .apply()
+    }
 }
 ```
-OkHttp3 와 Retrofit2를 활용하여 겹치는 헤더 사용 해결 및 서버 연동
+object를 이용한 SharedPreferences 사용 & 자동 로그인 구현
 
-### Level 2-3
+## Level 1-3
+<img width="434" alt="스크린샷 2021-12-17 오후 9 52 00" src="https://user-images.githubusercontent.com/56147398/146547424-4dde5fae-e934-434f-ad91-ad22b8327aec.png">
 
-### ResponseWrapper
-```kotlin
-data class ResponseWrapper<T>(
-    val status: Int,
-    val success: Boolean,
-    val message: String,
-    val data: T? = null
-)
+adapter, util, api ,view로 크게 나누어서 폴더링
+
+
+## Level 2-1
+### nav_boarding.xml
+```xml
+        <action
+            android:id="@+id/action_boardingFragment2_to_boardingFragment3"
+            app:destination="@+id/boardingFragment3"
+            app:popUpTo="@id/boardingFragment1"
+            app:popUpToInclusive="false"/>
 ```
+popUpTo와 popUpToInclusive를 사용하여 BackStack 관리
 
-### ResponseSignUp & ResponseLogin
+## Level 2-2
+### BoardingActivity.kt
 ```kotlin
-data class ResponseSignUp(
-    val email: String,
-    val id: Int,
-    val name: String,
-)
+class BoardingActivity: AppCompatActivity() {
+    private lateinit var binding: ActivityBoardingBinding
 
-data class ResponseLogin(
-    val email: String,
-    val id: Int,
-    val name: String,
-    val password: Int
-)
-```
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityBoardingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-### SoptApiService
-```kotlin
-interface SoptApiService {
-    @POST("user/signup")
-    fun postSignUp(@Body body: RequestSignUp): Call<ResponseWrapper<ResponseSignUp>>
+        initToolbar()
+    }
 
-    @POST("user/login")
-    fun getLoginInfo(@Body body: RequestLogin): Call<ResponseWrapper<ResponseLogin>>
+    private fun initToolbar() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.container_boarding) as NavHostFragment
+        val navController = navHostFragment.navController
+        setSupportActionBar(binding.toolbar)
+        NavigationUI.setupActionBarWithNavController(this,navController)
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+    }
+
+    override fun onSupportNavigateUp() = findNavController(R.id.container_boarding).navigateUp()
 }
 ```
-Wrapper 클래스를 사용하여 중복되는 내용을 해결
+navigation의 label과 Toolbar를 연동하여 title의 내용을 구현했습니다.
 
-- 배운 내용 : OkHttp를 사용하여 중복되는 헤더를 계속해서 사용하는 문제를 해결할 수 있었다.
+- 배운 내용 : navigation을 활용한 온보딩에 대해 배울 수 있었습니다.
