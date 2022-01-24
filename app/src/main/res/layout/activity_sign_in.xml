@@ -1,134 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".view.activity.SignInActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/image_github"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="65dp"
-        android:src="@drawable/img_github"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <TextView
-        android:id="@+id/tv_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
-        android:fontFamily="@font/notosanskr_bold"
-        android:text="@string/id"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_github" />
-    
-    <ImageButton
-        android:id="@+id/btn_auto_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/checkbox_selector"
-        app:layout_constraintRight_toLeftOf="@id/tv_auto_login"
-        app:layout_constraintTop_toTopOf="@id/tv_auto_login"
-        android:layout_marginEnd="5dp"
-        />
+        <variable
+            name="viewModel"
+            type="org.sopt.soptandroidseminar.view.signin.SignInViewModel" />
 
-    <TextView
-        android:id="@+id/tv_auto_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/auto_login"
-        android:textSize="14sp"
-        android:fontFamily="@font/notosanskr_bold"
-        app:layout_constraintTop_toTopOf="@id/tv_id"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="20dp"
-        />
+    </data>
 
-    <EditText
-        android:id="@+id/edit_id"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/selector_edit"
-        android:hint="@string/write_id"
-        android:padding="15dp"
-        android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_id" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".view.signin.SignInActivity">
 
-    <TextView
-        android:id="@+id/tv_pw"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:fontFamily="@font/notosanskr_bold"
-        android:text="@string/pw"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_id"
-        app:layout_constraintTop_toBottomOf="@id/edit_id" />
+        <ImageView
+            android:id="@+id/image_github"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="65dp"
+            android:src="@drawable/img_github"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/edit_pw"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/selector_edit"
-        android:hint="@string/write_pw"
-        android:inputType="textPassword"
-        android:padding="15dp"
-        android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_pw" />
+        <TextView
+            android:id="@+id/tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/notosanskr_bold"
+            android:text="@string/id"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_github" />
 
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/login_border"
-        android:paddingVertical="10dp"
-        android:text="@string/login"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/tv_register_question"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        <ImageButton
+            android:id="@+id/btn_auto_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/checkbox_selector"
+            app:layout_constraintRight_toLeftOf="@id/tv_auto_login"
+            app:layout_constraintTop_toTopOf="@id/tv_auto_login" />
 
-    <TextView
-        android:id="@+id/tv_register_question"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="105dp"
-        android:layout_marginBottom="40dp"
-        android:fontFamily="@font/notosanskr_regular"
-        android:text="계정이 없으신가요?"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        <TextView
+            android:id="@+id/tv_auto_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/notosanskr_bold"
+            android:text="@string/auto_login"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_id" />
 
-    <TextView
-        android:id="@+id/tv_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:fontFamily="@font/notosanskr_bold"
-        android:text="@string/sign_up"
-        android:textSize="12sp"
-        app:layout_constraintLeft_toRightOf="@id/tv_register_question"
-        app:layout_constraintTop_toTopOf="@id/tv_register_question" />
+        <EditText
+            android:id="@+id/edit_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/selector_edit"
+            android:hint="@string/write_id"
+            android:padding="15dp"
+            android:text="@={viewModel.email}"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_id" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_pw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/notosanskr_bold"
+            android:text="@string/pw"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_id"
+            app:layout_constraintTop_toBottomOf="@id/edit_id" />
+
+        <EditText
+            android:id="@+id/edit_pw"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/selector_edit"
+            android:hint="@string/write_pw"
+            android:inputType="textPassword"
+            android:padding="15dp"
+            android:text="@={viewModel.password}"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_pw" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/login_border"
+            android:paddingVertical="10dp"
+            android:text="@string/login"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/tv_register_question"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_register_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="105dp"
+            android:layout_marginBottom="40dp"
+            android:fontFamily="@font/notosanskr_regular"
+            android:text="계정이 없으신가요?"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/notosanskr_bold"
+            android:text="@string/sign_up"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toRightOf="@id/tv_register_question"
+            app:layout_constraintTop_toTopOf="@id/tv_register_question" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
