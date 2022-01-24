@@ -6,37 +6,36 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.sopt.soptandroidseminar.api.ApiServiceCreator
 import org.sopt.soptandroidseminar.api.data.request.RequestLogin
+import org.sopt.soptandroidseminar.api.data.SOPTSharedPreferences
 import org.sopt.soptandroidseminar.view.enqueueUtil
+import org.sopt.soptandroidseminar.view.signup.SingleLiveEvent
 
 class SignInViewModel : ViewModel() {
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
-    private val _name = MutableLiveData<String>()
-    val name: LiveData<String> get() = _name
 
-    private val _successLogIn = MutableLiveData<Boolean>()
-    val successLogIn: LiveData<Boolean> get() = _successLogIn
+    private val _successLogIn = SingleLiveEvent<Unit>()
+    val successLogIn: LiveData<Unit> get() = _successLogIn
 
-    fun checkInputText(): Boolean =
-        email.value.isNullOrBlank() || password.value.isNullOrBlank()
+    val isInputBlank: Boolean
+        get() = email.value.isNullOrBlank() || password.value.isNullOrBlank()
 
-    fun loginRequest() {
+
+    fun login() {
         val requestLogin = RequestLogin(
             email = email.value.toString(),
             password = password.value.toString()
         )
 
-        val call = ApiServiceCreator.soptApiService.getLoginInfo(requestLogin)
-
-        call.enqueueUtil(
-            onSuccess = {
-                _name.value = it.data?.name
-                _successLogIn.value = it.success
-            },
-            onError = {
-                Log.d("NetworkTest", "error:${it}")
-                _successLogIn.value = false
-            }
-        )
+        ApiServiceCreator.soptApiService
+            .getLoginInfo(requestLogin)
+            .enqueueUtil(
+                onSuccess = {
+                    it.data?.name?.let { SOPTSharedPreferences.setName(it) }
+                    _successLogIn.call()
+                },
+                onError = {
+                    Log.d("NetworkTest", "error:${it}")
+                })
     }
 }

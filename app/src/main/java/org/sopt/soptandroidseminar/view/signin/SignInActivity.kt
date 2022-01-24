@@ -8,12 +8,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import org.sopt.soptandroidseminar.R
-import org.sopt.soptandroidseminar.api.ApiServiceCreator
-import org.sopt.soptandroidseminar.api.data.request.RequestLogin
 import org.sopt.soptandroidseminar.databinding.ActivitySignInBinding
-import org.sopt.soptandroidseminar.util.SOPTSharedPreferences
+import org.sopt.soptandroidseminar.api.data.SOPTSharedPreferences
 import org.sopt.soptandroidseminar.view.activity.MainActivity
-import org.sopt.soptandroidseminar.view.enqueueUtil
 import org.sopt.soptandroidseminar.view.showToast
 import org.sopt.soptandroidseminar.view.signup.SignUpActivity
 
@@ -26,57 +23,48 @@ class SignInActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_in)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        goToSignUpActivity()
-        loginCheckEvent()
-        autologinImageClickEvent()
+
+        initView()
         initAutoLoginEvent()
         observeSuccessLogin()
     }
 
-    private fun goToSignUpActivity() {
+    private fun initView() {
         binding.tvRegister.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             signUpActivityLauncher.launch(intent)
         }
-    }
 
-    private fun autologinImageClickEvent() {
+        binding.btnLogin.setOnClickListener {
+            if (viewModel.isInputBlank) {
+                showToast("로그인 실패")
+            } else {
+                viewModel.login()
+            }
+        }
+
         binding.btnAutoLogin.setOnClickListener {
             binding.btnAutoLogin.isSelected = !binding.btnAutoLogin.isSelected
-            SOPTSharedPreferences.setAutoLogin(this, binding.btnAutoLogin.isSelected)
+            SOPTSharedPreferences.setAutoLogin(binding.btnAutoLogin.isSelected)
         }
     }
 
     private fun initAutoLoginEvent() {
-        if (SOPTSharedPreferences.getAutoLogin(this)) {
+        if (SOPTSharedPreferences.getAutoLogin()) {
             showToast("자동 로그인")
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
     }
 
-    private fun loginCheckEvent() {
-        binding.btnLogin.setOnClickListener {
-            if (viewModel.checkInputText()) {
-                showToast("로그인 실패")
-            } else {
-                viewModel.loginRequest()
-            }
-        }
-    }
-
     private fun observeSuccessLogin() {
         viewModel.successLogIn.observe(this) {
-            if (it) {
-                goToHomeActivity()
-            } else {
-                showToast("로그인에 실패하였습니다.")
-            }
+            goToHomeActivity()
         }
     }
 
     private fun goToHomeActivity() {
-        showToast("${viewModel.name.value}님 환영합니다!")
+        showToast("${SOPTSharedPreferences.getName()}님 환영합니다!")
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
