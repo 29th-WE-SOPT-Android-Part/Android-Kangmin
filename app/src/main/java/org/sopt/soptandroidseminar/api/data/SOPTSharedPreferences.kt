@@ -12,9 +12,10 @@ object SOPTSharedPreferences {
         preferences = context.getSharedPreferences(STORAGE_KEY, Context.MODE_PRIVATE)
     }
 
-    fun getAutoLogin() : Boolean {
+    fun getAutoLogin(): Boolean {
         return preferences.getBoolean(AUTO_LOGIN, false)
     }
+
     fun setAutoLogin(value: Boolean) {
         preferences.edit()
             .putBoolean(AUTO_LOGIN, value)
@@ -22,20 +23,20 @@ object SOPTSharedPreferences {
     }
 
     fun setLogout(context: Context) {
-        val preferences = context.getSharedPreferences(STORAGE_KEY, Context.MODE_PRIVATE)
+        preferences = context.getSharedPreferences(STORAGE_KEY, Context.MODE_PRIVATE)
         preferences.edit()
             .remove(AUTO_LOGIN)
             .clear()
             .apply()
     }
+
     fun setName(value: String) {
         preferences.edit()
             .putString("name", value)
             .apply()
     }
 
-    fun getName(): String{
-        return preferences.getString("name","").toString()
+    fun getName(): String {
+        return preferences.getString("name", "").toString()
     }
-
 }

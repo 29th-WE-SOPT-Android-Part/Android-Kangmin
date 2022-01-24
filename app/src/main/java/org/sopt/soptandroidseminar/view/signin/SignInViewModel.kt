@@ -36,6 +36,7 @@ class SignInViewModel : ViewModel() {
                 },
                 onError = {
                     Log.d("NetworkTest", "error:${it}")
-                })
+                }
+            )
     }
 }
