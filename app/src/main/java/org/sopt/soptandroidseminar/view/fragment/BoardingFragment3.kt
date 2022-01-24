@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import org.sopt.soptandroidseminar.databinding.FragmentBoarding3Binding
-import org.sopt.soptandroidseminar.view.activity.SignInActivity
+import org.sopt.soptandroidseminar.view.signin.SignInActivity
 
 class BoardingFragment3: Fragment() {
     private var _binding: FragmentBoarding3Binding? = null
