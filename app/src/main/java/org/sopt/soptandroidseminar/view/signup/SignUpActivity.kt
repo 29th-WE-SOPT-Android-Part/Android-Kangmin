@@ -26,21 +26,17 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun signUpButtonClickEvent() {
         binding.btnSignUpSuccess.setOnClickListener {
-            if (viewModel.checkInputText()) {
+            if (viewModel.isInputBlank) {
                 showToast("입력되지 않은 정보가 있습니다")
             } else {
-                viewModel.signUpRequest()
+                viewModel.signUp()
             }
         }
     }
 
     private fun observeSuccessSignUp() {
         viewModel.signUpSuccess.observe(this) {
-            if (it) {
-                successSignUp()
-            } else {
-                showToast("회원가입 실패")
-            }
+            successSignUp()
         }
     }
 

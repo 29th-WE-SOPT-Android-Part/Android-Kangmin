@@ -16,29 +16,28 @@ class SignUpViewModel : ViewModel() {
 
     val password = MutableLiveData<String>()
 
-    private val _signUpSuccess = MutableLiveData<Boolean>()
-    val signUpSuccess: LiveData<Boolean> get() = _signUpSuccess
+    private val _signUpSuccess = SingleLiveEvent<Unit>()
+    val signUpSuccess: LiveData<Unit> get() = _signUpSuccess
 
-    fun checkInputText(): Boolean =
-        email.value.isNullOrBlank() || name.value.isNullOrBlank() || password.value.isNullOrBlank()
+    val isInputBlank: Boolean
+        get() = email.value.isNullOrBlank() || name.value.isNullOrBlank() || password.value.isNullOrBlank()
 
-    fun signUpRequest() {
+    fun signUp() {
         val requestSignUpData = RequestSignUp(
             email = email.value.toString(),
             name = name.value.toString(),
             password = name.value.toString()
         )
 
-        val call = ApiServiceCreator.soptApiService.postSignUp(requestSignUpData)
-
-        call.enqueueUtil(
-            onSuccess = {
-                _signUpSuccess.value = it.success
-            },
-            onError = {
-                Log.d("NetworkTest", "error:${it}")
-                _signUpSuccess.value = false
-            }
-        )
+        ApiServiceCreator.soptApiService
+            .postSignUp(requestSignUpData)
+            .enqueueUtil(
+                onSuccess = {
+                    _signUpSuccess.call()
+                },
+                onError = {
+                    Log.d("NetworkTest", "error:${it}")
+                }
+            )
     }
 }
