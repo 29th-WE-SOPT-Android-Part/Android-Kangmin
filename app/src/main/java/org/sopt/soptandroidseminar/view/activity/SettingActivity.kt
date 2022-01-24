@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import org.sopt.soptandroidseminar.databinding.ActivitySettingBinding
 import org.sopt.soptandroidseminar.util.SOPTSharedPreferences
 import org.sopt.soptandroidseminar.view.showToast
+import org.sopt.soptandroidseminar.view.signin.SignInActivity
 
 class SettingActivity: AppCompatActivity() {
     private lateinit var binding: ActivitySettingBinding
