@@ -6,7 +6,7 @@
     <data>
         <variable
             name="user"
-            type="org.sopt.soptandroidseminar.api.data.response.ResponseUserInfo" />
+            type="org.sopt.soptandroidseminar.api.data.response.ResponseUser" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
