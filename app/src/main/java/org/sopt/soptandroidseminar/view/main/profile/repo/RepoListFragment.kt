@@ -1,21 +1,17 @@
-package org.sopt.soptandroidseminar.view.fragment
+package org.sopt.soptandroidseminar.view.main.profile.repo
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.ItemTouchHelper
-import org.sopt.soptandroidseminar.adapter.FollowerListAdapter
 import org.sopt.soptandroidseminar.adapter.RepoListAdapter
-import org.sopt.soptandroidseminar.api.ApiServiceCreator
 import org.sopt.soptandroidseminar.databinding.FragmentRepoListBinding
-import org.sopt.soptandroidseminar.util.MyTouchHelperCallback
-import org.sopt.soptandroidseminar.view.enqueueUtil
 
 class RepoListFragment : Fragment() {
-
+    private val viewModel: RepoListViewModel by viewModels()
     private var _binding: FragmentRepoListBinding? = null
     private val binding get() = _binding!!
     private val adapter = RepoListAdapter()
@@ -25,35 +21,26 @@ class RepoListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRepoListBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        myFollowList()
+        initAdapter()
     }
 
-    private fun myFollowList() {
+    private fun initAdapter() {
         binding.recyclerRepoList.layoutManager = GridLayoutManager(requireContext(), 2)
-        val callback = MyTouchHelperCallback(adapter)
-        val touchHelper = ItemTouchHelper(callback)
-        touchHelper.attachToRecyclerView(binding.recyclerRepoList)
         binding.recyclerRepoList.adapter = adapter
-        adapter.startDrag(object : FollowerListAdapter.OnStartDragListener {
-            override fun onStartDrag(viewHolder: FollowerListAdapter.FollowerUserViewHolder) {
-                touchHelper.startDrag(viewHolder)
-            }
-        })
-        userFollowingList()
+        repoList()
     }
 
-    private fun userFollowingList() {
-        val call = ApiServiceCreator.githubApiService.reposForUser()
-        call.enqueueUtil(
-            onSuccess = {
-                adapter.setItems(it)
-            }
-        )
+    private fun repoList() {
+        viewModel.repoList()
+        viewModel.repoList.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
     }
 
     override fun onDestroyView() {
