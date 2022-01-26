@@ -18,8 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/pink_background"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
@@ -28,8 +26,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
                 android:src="@drawable/img_github"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -53,8 +51,8 @@
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_profile" />
 
             <TextView
@@ -66,8 +64,8 @@
                 android:text="@string/my_id"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
             <TextView
@@ -82,8 +80,8 @@
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_id" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -94,8 +92,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="11dp"
             android:layout_marginTop="10dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_profile">
 
             <Button
@@ -109,8 +107,8 @@
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/btn_repo_list"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_repo_list"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
@@ -123,8 +121,8 @@
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintLeft_toRightOf="@id/btn_follower_list"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btn_follower_list"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -137,8 +135,8 @@
             android:layout_marginTop="30dp"
             android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_btn_list" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
