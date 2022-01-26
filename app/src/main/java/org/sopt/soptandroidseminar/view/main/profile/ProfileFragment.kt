@@ -1,29 +1,30 @@
 package org.sopt.soptandroidseminar.view.main.profile
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import org.sopt.soptandroidseminar.R
 import org.sopt.soptandroidseminar.databinding.FragmentProfileBinding
+import org.sopt.soptandroidseminar.util.BindingFragment
 import org.sopt.soptandroidseminar.view.activity.SettingActivity
 import org.sopt.soptandroidseminar.view.main.profile.follow.FollowerListFragment
 import org.sopt.soptandroidseminar.view.main.profile.repo.RepoListFragment
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
     private val viewModel: ProfileViewModel by viewModels()
-    private var _binding: FragmentProfileBinding? = null
-    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        super.onCreateView(inflater, container, savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
@@ -32,9 +33,29 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initEvent()
         profileImage()
-        changeFragment()
+        observerFragment()
+    }
 
+    private fun initView() {
+        binding.btnFollowerList.isSelected = true
+        viewModel.followFragment()
+    }
+
+    private fun initEvent() {
+        binding.imageSetting.setOnClickListener {
+            val intent = Intent(requireActivity(), SettingActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnRepoList.setOnClickListener {
+            viewModel.repoFragment()
+        }
+
+        binding.btnFollowerList.setOnClickListener {
+            viewModel.followFragment()
+        }
     }
 
     private fun profileImage() {
@@ -44,62 +65,36 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun changeFragment() {
-        binding.btnFollowerList.isSelected = true
-        val followerListFragment = FollowerListFragment()
-        val repoListFragment = RepoListFragment()
-        viewModel.setFragment()
+    private fun observerFragment() {
 
-        viewModel.fragment.observe(viewLifecycleOwner) {
-            if (it) {
-                followerListColor()
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_list, followerListFragment)
-                    .commit()
+        viewModel.followFragment.observe(viewLifecycleOwner) {
+            buttonColor(true)
+            fragmentManager(FollowerListFragment())
+        }
+        viewModel.repoFragment.observe(viewLifecycleOwner) {
+            buttonColor(false)
+            fragmentManager(RepoListFragment())
+
+        }
+    }
+
+    private fun fragmentManager(fragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_list, fragment)
+            .commit()
+    }
+
+    private fun buttonColor(select: Boolean) {
+        with(binding) {
+                btnFollowerList.isSelected= select
+                btnRepoList.isSelected= !select
+            if (btnFollowerList.isSelected) {
+                btnFollowerList.setTextColor(ContextCompat.getColor(requireActivity(), R.color.white))
+                btnRepoList.setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
             } else {
-                repoListColor()
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_list, repoListFragment)
-                    .commit()
+                btnFollowerList.setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
+                btnRepoList.setTextColor(ContextCompat.getColor(requireActivity(), R.color.white))
             }
         }
-    }
-
-    private fun repoListColor() {
-        with(binding) {
-            btnRepoList.isSelected = true
-            btnFollowerList.isSelected = false
-            btnFollowerList.setTextColor(requireActivity().resources.getColor(R.color.black))
-            btnRepoList.setTextColor(requireActivity().resources.getColor(R.color.white))
-        }
-    }
-
-    private fun followerListColor() {
-        with(binding) {
-            btnRepoList.isSelected = false
-            btnFollowerList.isSelected = true
-            btnFollowerList.setTextColor(requireActivity().resources.getColor(R.color.white))
-            btnRepoList.setTextColor(requireActivity().resources.getColor(R.color.black))
-        }
-    }
-
-    private fun initView() {
-        binding.imageSetting.setOnClickListener {
-            val intent = Intent(requireActivity(), SettingActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.btnRepoList.setOnClickListener {
-            viewModel.setFalseFragment()
-        }
-
-        binding.btnFollowerList.setOnClickListener {
-            viewModel.setFragment()
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
