@@ -1,22 +1,22 @@
 package org.sopt.soptandroidseminar.view.main.profile
 
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
 import org.sopt.soptandroidseminar.api.ApiServiceCreator
 import org.sopt.soptandroidseminar.view.enqueueUtil
-import retrofit2.await
+import org.sopt.soptandroidseminar.view.signup.SingleLiveEvent
 
 class ProfileViewModel : ViewModel() {
 
     private val _imageUrl = MutableLiveData<String>()
     val imageUrl: LiveData<String> get() = _imageUrl
 
-    private val _fragment = MutableLiveData<Boolean>()
-    val fragment: LiveData<Boolean> get() = _fragment
+    private val _followFragment = SingleLiveEvent<Unit>()
+    val followFragment: LiveData<Unit> get() = _followFragment
+
+    private val _repoFragment = SingleLiveEvent<Unit>()
+    val repoFragment: LiveData<Unit> get() = _repoFragment
 
     fun profileImage() {
         ApiServiceCreator.githubApiService
@@ -24,18 +24,18 @@ class ProfileViewModel : ViewModel() {
             .enqueueUtil(
                 onSuccess = {
                     _imageUrl.value = it.avatar_url
-
                 }
             )
     }
 
-    fun setFragment() {
-        _fragment.value = true
+    fun followFragment() {
+        _followFragment.call()
     }
 
-    fun setFalseFragment() {
-        _fragment.value = false
+    fun repoFragment() {
+        _repoFragment.call()
     }
+
 
 
 }
