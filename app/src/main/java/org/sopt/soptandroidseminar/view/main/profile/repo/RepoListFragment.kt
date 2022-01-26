@@ -4,23 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import org.sopt.soptandroidseminar.R
 import org.sopt.soptandroidseminar.adapter.RepoListAdapter
 import org.sopt.soptandroidseminar.databinding.FragmentRepoListBinding
+import org.sopt.soptandroidseminar.util.BindingFragment
 
-class RepoListFragment : Fragment() {
+class RepoListFragment : BindingFragment<FragmentRepoListBinding>(R.layout.fragment_repo_list) {
     private val viewModel: RepoListViewModel by viewModels()
-    private var _binding: FragmentRepoListBinding? = null
-    private val binding get() = _binding!!
-    private val adapter = RepoListAdapter()
+    private var adapter: RepoListAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentRepoListBinding.inflate(inflater, container, false)
+        super.onCreateView(inflater, container, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
@@ -31,6 +30,7 @@ class RepoListFragment : Fragment() {
     }
 
     private fun initAdapter() {
+        adapter = RepoListAdapter()
         binding.recyclerRepoList.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.recyclerRepoList.adapter = adapter
         repoList()
@@ -39,12 +39,12 @@ class RepoListFragment : Fragment() {
     private fun repoList() {
         viewModel.repoList()
         viewModel.repoList.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            adapter?.submitList(it)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        adapter = null
     }
 }
