@@ -2,7 +2,7 @@ package org.sopt.soptandroidseminar.api.data.response
 
 data class ResponseUser(
     val login: String,
-    var id: Int,
+    val id: Int,
     val node_id: String,
     val avatar_url: String,
     val gravatar_id: String,
