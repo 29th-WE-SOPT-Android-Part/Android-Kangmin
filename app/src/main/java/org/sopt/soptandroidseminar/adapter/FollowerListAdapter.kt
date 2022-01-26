@@ -15,9 +15,7 @@ import org.sopt.soptandroidseminar.util.MyTouchHelperCallback
 import java.util.*
 
 class FollowerListAdapter(private val listener: ItemClickListener) :
-    ListAdapter<ResponseUser, FollowerListAdapter.FollowerUserViewHolder>(DIFFUTIL),
-    MyTouchHelperCallback.OnItemMoveListener {
-    private lateinit var dragListener: OnStartDragListener
+    ListAdapter<ResponseUser, FollowerListAdapter.FollowerUserViewHolder>(DIFFUTIL) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -27,41 +25,10 @@ class FollowerListAdapter(private val listener: ItemClickListener) :
         return FollowerUserViewHolder(binding, listener)
     }
 
-
-    override fun onItemMove(fromPosition: Int, toPosition: Int) {
-        Collections.swap(currentList, fromPosition, toPosition)
-        notifyItemMoved(fromPosition, toPosition)
-    }
-//
-
-    override fun onItemSwipe(position: Int) {
-        currentList.removeAt(position)
-        notifyItemRemoved(position)
-    }
-
-    fun starDrag(listener: OnStartDragListener) {
-        this.dragListener = listener
-    }
-
-    interface OnStartDragListener {
-        fun onStartDrag(viewHolder: RecyclerView.ViewHolder)
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: FollowerUserViewHolder, position: Int) {
         holder.onBind(getItem(position))
-        currentList[position].let {
-            with(holder) {
-                itemView.setOnTouchListener { view, motionEvent ->
-                    if (motionEvent.action == MotionEvent.ACTION_DOWN) {
-                        dragListener.onStartDrag(this)
-                    }
-                    return@setOnTouchListener false
-                }
-            }
-        }
-
     }
+
     fun interface ItemClickListener {
         fun onClick(data: ResponseUser)
     }
@@ -71,7 +38,6 @@ class FollowerListAdapter(private val listener: ItemClickListener) :
         private val listener: ItemClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(followerUser: ResponseUser) {
-
             binding.user = followerUser
 
             binding.root.setOnClickListener {
@@ -81,7 +47,7 @@ class FollowerListAdapter(private val listener: ItemClickListener) :
     }
 
     companion object {
-        val DIFFUTIL = object : DiffUtil.ItemCallback<ResponseUser>() {
+        private val DIFFUTIL = object : DiffUtil.ItemCallback<ResponseUser>() {
             override fun areItemsTheSame(
                 oldItem: ResponseUser,
                 newItem: ResponseUser
