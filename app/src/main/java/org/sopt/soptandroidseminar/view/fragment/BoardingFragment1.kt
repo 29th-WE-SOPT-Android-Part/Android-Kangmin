@@ -8,16 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.sopt.soptandroidseminar.R
 import org.sopt.soptandroidseminar.databinding.FragmentBoarding1Binding
+import org.sopt.soptandroidseminar.util.BindingFragment
 
-class BoardingFragment1: Fragment() {
-    private var _binding: FragmentBoarding1Binding? = null
-    private val binding get() = _binding!!
-
+class BoardingFragment1: BindingFragment<FragmentBoarding1Binding>(R.layout.fragment_boarding1) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentBoarding1Binding.inflate(inflater, container, false)
+        super.onCreateView(inflater, container, savedInstanceState)
         return binding.root
     }
 
@@ -29,8 +27,4 @@ class BoardingFragment1: Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

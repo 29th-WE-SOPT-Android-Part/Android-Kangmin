@@ -10,19 +10,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import org.sopt.soptandroidseminar.R
 import org.sopt.soptandroidseminar.databinding.FragmentCameraBinding
+import org.sopt.soptandroidseminar.util.BindingFragment
 import org.sopt.soptandroidseminar.view.showToast
 
-class CameraFragment : Fragment() {
-    private var _binding: FragmentCameraBinding? = null
-    private val binding get() = _binding!!
+class CameraFragment : BindingFragment<FragmentCameraBinding>(R.layout.fragment_camera) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCameraBinding.inflate(inflater, container, false)
+        super.onCreateView(inflater, container, savedInstanceState)
         return binding.root
     }
 
@@ -53,8 +52,4 @@ class CameraFragment : Fragment() {
             }
         }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }
