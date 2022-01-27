@@ -20,22 +20,13 @@ import org.sopt.soptandroidseminar.view.main.profile.repo.RepoListFragment
 
 class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
     private val viewModel: ProfileViewModel by viewModels()
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
         initEvent()
-        profileImage()
-        observerFragment()
+        getProfileImage()
+        observe()
     }
 
     private fun initView() {
@@ -58,43 +49,37 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
         }
     }
 
-    private fun profileImage() {
+    private fun getProfileImage() {
         viewModel.profileImage()
+
+    }
+
+    private fun observe() {
         viewModel.imageUrl.observe(viewLifecycleOwner) {
             Glide.with(this).load(it).circleCrop().into(binding.ivProfile)
         }
-    }
-
-    private fun observerFragment() {
 
         viewModel.followFragment.observe(viewLifecycleOwner) {
             buttonColor(true)
-            fragmentManager(FollowerListFragment())
+            fragmentConvert(FollowerListFragment())
         }
         viewModel.repoFragment.observe(viewLifecycleOwner) {
             buttonColor(false)
-            fragmentManager(RepoListFragment())
+            fragmentConvert(RepoListFragment())
 
         }
     }
 
-    private fun fragmentManager(fragment: Fragment) {
+    private fun fragmentConvert(fragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_list, fragment)
             .commit()
     }
 
-    private fun buttonColor(select: Boolean) {
+    private fun buttonColor(isSelect: Boolean) {
         with(binding) {
-                btnFollowerList.isSelected= select
-                btnRepoList.isSelected= !select
-            if (btnFollowerList.isSelected) {
-                btnFollowerList.setTextColor(ContextCompat.getColor(requireActivity(), R.color.white))
-                btnRepoList.setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
-            } else {
-                btnFollowerList.setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
-                btnRepoList.setTextColor(ContextCompat.getColor(requireActivity(), R.color.white))
-            }
+                btnFollowerList.isSelected= isSelect
+                btnRepoList.isSelected= !isSelect
         }
     }
 }
