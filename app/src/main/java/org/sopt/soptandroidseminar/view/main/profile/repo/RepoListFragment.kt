@@ -15,15 +15,6 @@ class RepoListFragment : BindingFragment<FragmentRepoListBinding>(R.layout.fragm
     private val viewModel: RepoListViewModel by viewModels()
     private var adapter: RepoListAdapter? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
@@ -44,7 +35,7 @@ class RepoListFragment : BindingFragment<FragmentRepoListBinding>(R.layout.fragm
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         adapter = null
+        super.onDestroyView()
     }
 }

@@ -21,16 +21,6 @@ class FollowerListFragment :
     private val viewModel: FollowerListViewModel by viewModels()
     private var adapter: FollowerListAdapter? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
@@ -71,7 +61,8 @@ class FollowerListFragment :
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         adapter = null
+        super.onDestroyView()
+
     }
 }
