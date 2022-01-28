@@ -1,4 +1,4 @@
-package org.sopt.soptandroidseminar.view.activity
+package org.sopt.soptandroidseminar.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -21,19 +21,19 @@ class MainActivity : AppCompatActivity() {
                 binding.bnvMain.menu.getItem(position).isChecked = true
             }
         })
-        binding.bnvMain.setOnNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
+        binding.bnvMain.setOnItemSelectedListener {
+            when (it.itemId) {
                 R.id.menu_profile -> {
                     binding.vpMain.currentItem = 0
-                    return@setOnNavigationItemSelectedListener true
+                    return@setOnItemSelectedListener true
                 }
                 R.id.menu_home -> {
                     binding.vpMain.currentItem = 1
-                    return@setOnNavigationItemSelectedListener true
+                    return@setOnItemSelectedListener true
                 }
                 else -> {
                     binding.vpMain.currentItem = 2
-                    return@setOnNavigationItemSelectedListener true
+                    return@setOnItemSelectedListener true
                 }
             }
         }
