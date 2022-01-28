@@ -8,16 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.sopt.soptandroidseminar.R
 import org.sopt.soptandroidseminar.databinding.FragmentBoarding2Binding
+import org.sopt.soptandroidseminar.util.BindingFragment
 
-class BoardingFragment2: Fragment() {
-    private var _binding: FragmentBoarding2Binding? = null
-    private val binding get() = _binding!!
-
+class BoardingFragment2: BindingFragment<FragmentBoarding2Binding>(R.layout.fragment_boarding2) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentBoarding2Binding.inflate(inflater, container, false)
+        super.onCreateView(inflater, container, savedInstanceState)
         return binding.root
     }
 
@@ -26,11 +24,5 @@ class BoardingFragment2: Fragment() {
         binding.btnNext.setOnClickListener {
             findNavController().navigate(R.id.action_boardingFragment2_to_boardingFragment3)
         }
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

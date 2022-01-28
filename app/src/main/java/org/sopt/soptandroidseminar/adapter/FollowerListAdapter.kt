@@ -1,84 +1,68 @@
 package org.sopt.soptandroidseminar.adapter
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
+import android.view.MotionEvent
 import android.view.ViewGroup
+import androidx.core.view.DragStartHelper
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import org.sopt.soptandroidseminar.api.data.response.ResponseUserInfo
+import org.sopt.soptandroidseminar.api.data.response.ResponseUser
 import org.sopt.soptandroidseminar.databinding.ItemFollowerListBinding
-import org.sopt.soptandroidseminar.util.MyDiffUtil
 import org.sopt.soptandroidseminar.util.MyTouchHelperCallback
 import java.util.*
 
-class FollowerListAdapter : RecyclerView.Adapter<FollowerListAdapter.FollowerUserViewHolder>(),
-    MyTouchHelperCallback.OnItemMoveListener {
-
-    private val userList = mutableListOf<ResponseUserInfo>()
-    private lateinit var itemClickListener: ItemClickListener
-
+class FollowerListAdapter(private val listener: ItemClickListener) :
+    ListAdapter<ResponseUser, FollowerListAdapter.FollowerUserViewHolder>(DIFFUTIL) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): FollowerListAdapter.FollowerUserViewHolder {
         val binding =
             ItemFollowerListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return FollowerUserViewHolder(binding)
-    }
-
-    override fun getItemCount(): Int = userList.size
-
-    interface OnStartDragListener {
-        fun onStartDrag(viewHolder: FollowerListAdapter.FollowerUserViewHolder)
-    }
-
-    override fun onItemMove(fromPosition: Int, toPosition: Int) {
-        Collections.swap(userList, fromPosition, toPosition)
-        notifyItemMoved(fromPosition, toPosition)
-    }
-
-    override fun onItemSwipe(position: Int) {
-        userList.removeAt(position)
-        notifyItemRemoved(position)
-    }
-
-    fun afterDragAndDrop() {
-        notifyDataSetChanged()
-    }
-
-    fun setItems(newItems: List<ResponseUserInfo>) {
-        val diffUtil = MyDiffUtil(userList, newItems)
-        val diffResult = DiffUtil.calculateDiff(diffUtil)
-
-        userList.clear()
-        userList.addAll(newItems)
-        diffResult.dispatchUpdatesTo(this)
+        return FollowerUserViewHolder(binding, listener)
     }
 
     override fun onBindViewHolder(holder: FollowerUserViewHolder, position: Int) {
-        holder.onBind(userList[position], position)
+        holder.onBind(getItem(position))
     }
 
-    inner class FollowerUserViewHolder(
-        private val binding: ItemFollowerListBinding
+    fun interface ItemClickListener {
+        fun onClick(data: ResponseUser)
+    }
+
+    class FollowerUserViewHolder(
+        private val binding: ItemFollowerListBinding,
+        private val listener: ItemClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(followerUserInfo: ResponseUserInfo, position: Int) {
+        fun onBind(followerUser: ResponseUser) {
+            binding.user = followerUser
 
-            binding.user = followerUserInfo
-
-            itemView.setOnClickListener {
-                itemClickListener.onClick(userList[position])
+            binding.root.setOnClickListener {
+                listener.onClick(followerUser)
             }
         }
     }
 
-    interface ItemClickListener {
-        fun onClick(data: ResponseUserInfo)
-    }
+    companion object {
+        private val DIFFUTIL = object : DiffUtil.ItemCallback<ResponseUser>() {
+            override fun areItemsTheSame(
+                oldItem: ResponseUser,
+                newItem: ResponseUser
+            ): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-    fun setItemClickListener(itemClickListener: ItemClickListener) {
-        this.itemClickListener = itemClickListener
+            override fun areContentsTheSame(
+                oldItem: ResponseUser,
+                newItem: ResponseUser
+            ): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 }
+
+

@@ -1,6 +1,6 @@
 package org.sopt.soptandroidseminar.api.data.response
 
-data class ResponseUserInfo(
+data class ResponseUser(
     val login: String,
     val id: Int,
     val node_id: String,

@@ -3,9 +3,9 @@ package org.sopt.soptandroidseminar.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import org.sopt.soptandroidseminar.view.fragment.CameraFragment
-import org.sopt.soptandroidseminar.view.fragment.HomeFragment
-import org.sopt.soptandroidseminar.view.fragment.ProfileFragment
+import org.sopt.soptandroidseminar.view.main.CameraFragment
+import org.sopt.soptandroidseminar.view.main.HomeFragment
+import org.sopt.soptandroidseminar.view.main.profile.ProfileFragment
 
 class ViewPagerAdapter(fragment: FragmentActivity) : FragmentStateAdapter(fragment) {
     override fun getItemCount() = 3

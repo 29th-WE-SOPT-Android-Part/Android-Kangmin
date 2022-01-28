@@ -22,7 +22,7 @@
         app:itemRippleColor="#FFB2EF"
         app:itemTextColor="@color/selector_bottom_navi"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

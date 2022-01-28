@@ -1,4 +1,4 @@
-package org.sopt.soptandroidseminar.view.fragment
+package org.sopt.soptandroidseminar.view.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,20 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
-import org.sopt.soptandroidseminar.adapter.FollowerViewPagerAdapter
+import org.sopt.soptandroidseminar.R
+import org.sopt.soptandroidseminar.adapter.FollowViewPagerAdapter
 import org.sopt.soptandroidseminar.databinding.FragmentHomeBinding
+import org.sopt.soptandroidseminar.util.BindingFragment
 
 
-class HomeFragment : Fragment() {
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,7 +21,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        binding.vpFollow.adapter = FollowerViewPagerAdapter(requireActivity())
+        binding.vpFollow.adapter = FollowViewPagerAdapter(requireActivity())
     }
 
     private fun initTabLayout() {
@@ -37,10 +30,5 @@ class HomeFragment : Fragment() {
         TabLayoutMediator(binding.tlFollow, binding.vpFollow) { tab, position ->
             tab.text = tabLable[position]
         }.attach()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

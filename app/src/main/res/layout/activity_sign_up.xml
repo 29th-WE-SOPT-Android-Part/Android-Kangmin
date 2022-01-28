@@ -26,8 +26,8 @@
             android:text="@string/sign_up"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -38,7 +38,6 @@
             android:text="@string/name"
             android:textColor="@color/black"
             android:textSize="14sp"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_id"
             app:layout_constraintTop_toBottomOf="@id/tv_sign_up" />
 
@@ -53,8 +52,8 @@
             android:padding="15dp"
             android:text="@={viewModel.name}"
             android:textSize="14sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
 
@@ -62,13 +61,13 @@
             android:id="@+id/tv_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="35dp"
             android:fontFamily="@font/notosanskr_bold"
             android:text="@string/id"
             android:textColor="@color/black"
             android:textSize="14sp"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_name" />
 
         <EditText
@@ -82,8 +81,8 @@
             android:padding="15dp"
             android:text="@={viewModel.email}"
             android:textSize="14sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_id" />
 
         <TextView
@@ -95,7 +94,6 @@
             android:text="@string/pw"
             android:textColor="@color/black"
             android:textSize="14sp"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_id"
             app:layout_constraintTop_toBottomOf="@id/edit_id" />
 
@@ -111,8 +109,8 @@
             android:padding="15dp"
             android:text="@={viewModel.password}"
             android:textSize="14sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_pw" />
 
         <Button
@@ -126,8 +124,8 @@
             android:text="@string/success_sign_up"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

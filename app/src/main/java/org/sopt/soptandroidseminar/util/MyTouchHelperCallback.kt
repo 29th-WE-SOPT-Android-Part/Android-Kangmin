@@ -1,5 +1,6 @@
 package org.sopt.soptandroidseminar.util
 
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import org.sopt.soptandroidseminar.adapter.FollowerListAdapter
@@ -12,22 +13,24 @@ class MyTouchHelperCallback(
 
     interface OnItemMoveListener {
         fun onItemMove(fromPosition: Int, toPosition: Int)
-        fun startDrag(onStartDragListener: FollowerListAdapter.OnStartDragListener) {}
         fun onItemSwipe(position: Int)
     }
 
-    /**
-     * 어느 방향으로 움직일지에 따라서 flag 받는것을 정의
-     * 드래그는 위, 아래 액션이기 때문에 up, down 을 넘겨줌
-     */
     override fun getMovementFlags(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
     ): Int {
-        val dragFlags =
-            ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-        val swipeFlags = ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-        return makeMovementFlags(dragFlags, swipeFlags)
+        return if (recyclerView.layoutManager is GridLayoutManager) {
+            val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+            val swipeFlags = 0
+            makeMovementFlags(dragFlags, swipeFlags)
+        } else {
+            val dragFlags =
+                ItemTouchHelper.UP or ItemTouchHelper.DOWN
+            val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
+            makeMovementFlags(dragFlags, swipeFlags)
+        }
+
     }
 
     /**
@@ -42,19 +45,9 @@ class MyTouchHelperCallback(
         return true
     }
 
-    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-        super.onSelectedChanged(viewHolder, actionState)
-        if (isMoved) {
-            isMoved = false
-            val adapter = FollowerListAdapter()
-            adapter.afterDragAndDrop()
-        }
-    }
-
-    /**
-     * 좌우 스와이프
-     */
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         itemMoveListener.onItemSwipe(viewHolder.getAdapterPosition());
     }
+
+    override fun isLongPressDragEnabled(): Boolean = false
 }
