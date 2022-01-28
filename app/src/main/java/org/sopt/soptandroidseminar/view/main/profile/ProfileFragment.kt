@@ -1,20 +1,14 @@
 package org.sopt.soptandroidseminar.view.main.profile
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import org.sopt.soptandroidseminar.R
 import org.sopt.soptandroidseminar.databinding.FragmentProfileBinding
 import org.sopt.soptandroidseminar.util.BindingFragment
-import org.sopt.soptandroidseminar.view.activity.SettingActivity
 import org.sopt.soptandroidseminar.view.main.profile.follow.FollowerListFragment
 import org.sopt.soptandroidseminar.view.main.profile.repo.RepoListFragment
 

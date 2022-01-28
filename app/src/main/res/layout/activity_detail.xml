@@ -34,7 +34,7 @@
         android:layout_marginStart="20dp"
         android:text="@string/my_name"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@id/tv_name"
+        app:layout_constraintStart_toEndOf="@id/tv_name"
         app:layout_constraintTop_toTopOf="@id/tv_name" />
 
     <TextView

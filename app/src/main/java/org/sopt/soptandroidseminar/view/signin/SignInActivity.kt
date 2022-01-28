@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil
 import org.sopt.soptandroidseminar.R
 import org.sopt.soptandroidseminar.databinding.ActivitySignInBinding
 import org.sopt.soptandroidseminar.api.data.SOPTSharedPreferences
-import org.sopt.soptandroidseminar.view.activity.MainActivity
+import org.sopt.soptandroidseminar.view.MainActivity
 import org.sopt.soptandroidseminar.view.showToast
 import org.sopt.soptandroidseminar.view.signup.SignUpActivity
 

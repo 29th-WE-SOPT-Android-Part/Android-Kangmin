@@ -15,12 +15,12 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.SoptAndroidSeminar">
         <activity
-            android:name=".view.activity.MainActivity" />
+            android:name=".view.MainActivity" />
         <activity
-            android:name=".view.activity.DetailActivity" />
+            android:name=".view.main.profile.detail.DetailActivity" />
         <activity
             android:name=".view.signup.SignUpActivity" />
-        <activity android:name=".view.activity.BoardingActivity"
+        <activity android:name=".view.onboard.BoardingActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +31,7 @@
         <activity
             android:name=".view.signin.SignInActivity"
             android:exported="true" />
-        <activity android:name=".view.activity.SettingActivity" />
+        <activity android:name=".view.main.profile.SettingActivity" />
     </application>
 
 </manifest>

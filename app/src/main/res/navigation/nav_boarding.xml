@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/boardingFragment1"
-        android:name="org.sopt.soptandroidseminar.view.fragment.BoardingFragment1"
+        android:name="org.sopt.soptandroidseminar.view.onboard.BoardingFragment1"
         android:label="첫번째 화면"
         tools:layout="@layout/fragment_boarding1">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/boardingFragment2"
-        android:name="org.sopt.soptandroidseminar.view.fragment.BoardingFragment2"
+        android:name="org.sopt.soptandroidseminar.view.onboard.BoardingFragment2"
         android:label="두번째 화면"
         tools:layout="@layout/fragment_boarding2">
         <action
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/boardingFragment3"
-        android:name="org.sopt.soptandroidseminar.view.fragment.BoardingFragment3"
+        android:name="org.sopt.soptandroidseminar.view.onboard.BoardingFragment3"
         android:label="세번째 화면"
         tools:layout="@layout/fragment_boarding3" />
 </navigation>

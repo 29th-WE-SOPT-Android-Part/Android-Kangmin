@@ -2,9 +2,7 @@ package org.sopt.soptandroidseminar.view.main.profile.follow
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,7 +11,7 @@ import org.sopt.soptandroidseminar.adapter.FollowerListAdapter
 import org.sopt.soptandroidseminar.databinding.FragmentFollwerListBinding
 import org.sopt.soptandroidseminar.util.BindingFragment
 import org.sopt.soptandroidseminar.util.VerticalItemDecoration
-import org.sopt.soptandroidseminar.view.activity.DetailActivity
+import org.sopt.soptandroidseminar.view.main.profile.detail.DetailActivity
 
 class FollowerListFragment :
     BindingFragment<FragmentFollwerListBinding>(R.layout.fragment_follwer_list) {
