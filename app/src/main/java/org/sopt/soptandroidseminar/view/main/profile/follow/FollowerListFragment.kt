@@ -29,7 +29,7 @@ class FollowerListFragment :
     private fun initAdapter() {
         recyclerViewDecoration()
         adapter = FollowerListAdapter {
-            val intent = Intent(requireActivity(), DetailActivity::class.java).apply {
+            val intent = Intent(requireContext(), DetailActivity::class.java).apply {
                 putExtra("githubId", it.login)
                 putExtra("githubUrl", it.repos_url)
                 putExtra("githubImage", it.avatar_url)

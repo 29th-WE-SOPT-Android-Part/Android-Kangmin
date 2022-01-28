@@ -76,10 +76,10 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
             .commit()
     }
 
-    private fun buttonColor(isSelect: Boolean) {
+    private fun buttonColor(isFollowSelected: Boolean) {
         with(binding) {
-                btnFollowerList.isSelected= isSelect
-                btnRepoList.isSelected= !isSelect
+                btnFollowerList.isSelected= isFollowSelected
+                btnRepoList.isSelected= !isFollowSelected
         }
     }
 }
