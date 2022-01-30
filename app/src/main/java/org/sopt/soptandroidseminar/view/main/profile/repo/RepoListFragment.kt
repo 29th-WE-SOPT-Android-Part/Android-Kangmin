@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptandroidseminar.R
 import org.sopt.soptandroidseminar.adapter.RepoListAdapter
 import org.sopt.soptandroidseminar.databinding.FragmentRepoListBinding
 import org.sopt.soptandroidseminar.util.BindingFragment
 
+@AndroidEntryPoint
 class RepoListFragment : BindingFragment<FragmentRepoListBinding>(R.layout.fragment_repo_list) {
-    private val viewModel: RepoListViewModel by viewModels()
+    private val viewModel by viewModels<RepoListViewModel>()
     private var adapter: RepoListAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

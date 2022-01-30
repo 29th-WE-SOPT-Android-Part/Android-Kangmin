@@ -3,21 +3,26 @@ package org.sopt.soptandroidseminar.view.main.profile.repo
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.sopt.soptandroidseminar.api.ApiServiceCreator
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import org.sopt.soptandroidseminar.api.GithubApiService
 import org.sopt.soptandroidseminar.api.data.response.ResponseRepo
-import org.sopt.soptandroidseminar.view.enqueueUtil
+import retrofit2.await
+import javax.inject.Inject
 
-class RepoListViewModel : ViewModel() {
+@HiltViewModel
+class RepoListViewModel @Inject constructor(private val service: GithubApiService) : ViewModel() {
     private val _repoList = MutableLiveData<List<ResponseRepo>>()
     val repoList: LiveData<List<ResponseRepo>> get() = _repoList
 
     fun repoList() {
-        ApiServiceCreator.githubApiService
-            .reposForUser()
-            .enqueueUtil(
-                onSuccess = {
-                    _repoList.value = it
-                }
-            )
+        viewModelScope.launch {
+            runCatching {
+                service.reposForUser().await()
+            }.onSuccess {
+                _repoList.value = it
+            }
+        }
     }
 }

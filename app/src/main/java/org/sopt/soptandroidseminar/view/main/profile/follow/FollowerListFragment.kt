@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptandroidseminar.R
 import org.sopt.soptandroidseminar.adapter.FollowerListAdapter
 import org.sopt.soptandroidseminar.databinding.FragmentFollwerListBinding
@@ -13,10 +14,11 @@ import org.sopt.soptandroidseminar.util.BindingFragment
 import org.sopt.soptandroidseminar.util.VerticalItemDecoration
 import org.sopt.soptandroidseminar.view.main.profile.detail.DetailActivity
 
+@AndroidEntryPoint
 class FollowerListFragment :
     BindingFragment<FragmentFollwerListBinding>(R.layout.fragment_follwer_list) {
 
-    private val viewModel: FollowerListViewModel by viewModels()
+    private val viewModel by viewModels<FollowerListViewModel>()
     private var adapter: FollowerListAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
