@@ -3,10 +3,12 @@ package org.sopt.soptandroidseminar.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
+import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptandroidseminar.R
 import org.sopt.soptandroidseminar.adapter.ViewPagerAdapter
 import org.sopt.soptandroidseminar.databinding.ActivityMainBinding
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
