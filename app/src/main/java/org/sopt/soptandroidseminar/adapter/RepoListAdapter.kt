@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import org.sopt.soptandroidseminar.api.data.response.ResponseRepo
+import org.sopt.soptandroidseminar.data.response.ResponseRepo
 import org.sopt.soptandroidseminar.databinding.ItemRepoListBinding
 
 class RepoListAdapter : ListAdapter<ResponseRepo, RepoListAdapter.RepoViewHolder>(DIFFUTIL) {

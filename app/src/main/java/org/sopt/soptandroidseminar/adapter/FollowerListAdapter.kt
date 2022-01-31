@@ -1,17 +1,12 @@
 package org.sopt.soptandroidseminar.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.ViewGroup
-import androidx.core.view.DragStartHelper
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import org.sopt.soptandroidseminar.api.data.response.ResponseUser
+import org.sopt.soptandroidseminar.data.response.ResponseUser
 import org.sopt.soptandroidseminar.databinding.ItemFollowerListBinding
-import org.sopt.soptandroidseminar.util.MyTouchHelperCallback
 import java.util.*
 
 class FollowerListAdapter(private val listener: ItemClickListener) :
