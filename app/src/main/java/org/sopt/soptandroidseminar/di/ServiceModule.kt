@@ -4,8 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.sopt.soptandroidseminar.api.GithubApiService
-import org.sopt.soptandroidseminar.api.SoptApiService
+import org.sopt.soptandroidseminar.data.service.GithubApiService
+import org.sopt.soptandroidseminar.data.service.SoptApiService
 import retrofit2.Retrofit
 import javax.inject.Singleton
 

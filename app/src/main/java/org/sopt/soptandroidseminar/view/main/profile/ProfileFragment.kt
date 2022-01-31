@@ -6,14 +6,16 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptandroidseminar.R
 import org.sopt.soptandroidseminar.databinding.FragmentProfileBinding
 import org.sopt.soptandroidseminar.util.BindingFragment
 import org.sopt.soptandroidseminar.view.main.profile.follow.FollowerListFragment
 import org.sopt.soptandroidseminar.view.main.profile.repo.RepoListFragment
 
+@AndroidEntryPoint
 class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
-    private val viewModel: ProfileViewModel by viewModels()
+    private val viewModel by viewModels<ProfileViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
