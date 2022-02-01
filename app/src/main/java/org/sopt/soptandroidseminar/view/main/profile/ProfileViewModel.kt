@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.sopt.soptandroidseminar.data.service.GithubApiService
-import org.sopt.soptandroidseminar.view.signup.SingleLiveEvent
+import org.sopt.soptandroidseminar.util.SingleLiveEvent
 import retrofit2.await
 import javax.inject.Inject
 

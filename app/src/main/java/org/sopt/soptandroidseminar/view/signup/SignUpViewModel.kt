@@ -7,9 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import org.sopt.soptandroidseminar.data.service.SoptApiService
-import org.sopt.soptandroidseminar.data.request.RequestSignUp
 import org.sopt.soptandroidseminar.domain.AuthRepository
+import org.sopt.soptandroidseminar.util.SingleLiveEvent
 import javax.inject.Inject
 
 @HiltViewModel
