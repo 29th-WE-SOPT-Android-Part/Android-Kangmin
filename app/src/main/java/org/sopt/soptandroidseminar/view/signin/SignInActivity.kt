@@ -11,6 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptandroidseminar.R
 import org.sopt.soptandroidseminar.data.SoptDataStore
 import org.sopt.soptandroidseminar.databinding.ActivitySignInBinding
+import org.sopt.soptandroidseminar.util.EventObserver
 import org.sopt.soptandroidseminar.view.MainActivity
 import org.sopt.soptandroidseminar.view.showToast
 import org.sopt.soptandroidseminar.view.signup.SignUpActivity
@@ -64,12 +65,13 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun observeSuccessLogin() {
-        viewModel.successLogIn.observe(this) {
-            goToHomeActivity()
-        }
-        viewModel.failureLogIn.observe(this) {
-            showToast("로그인에 실패했습니다.")
-        }
+        viewModel.logIn.observe(this, EventObserver{
+            when(it) {
+                SignInViewModel.LOGIN_SUCCESS -> goToHomeActivity()
+                SignInViewModel.LOGIN_FAILURE -> showToast("아이디/비밀번호 를 확인해주세요.")
+                SignInViewModel.SERVER_FAILURE -> showToast("서버통신에 실패했습니다.")
+            }
+        })
     }
 
     private fun goToHomeActivity() {
@@ -91,4 +93,6 @@ class SignInActivity : AppCompatActivity() {
             }
         }
     }
+
+
 }
