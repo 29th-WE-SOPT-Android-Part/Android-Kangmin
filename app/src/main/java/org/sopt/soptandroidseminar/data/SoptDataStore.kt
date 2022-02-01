@@ -32,13 +32,13 @@ class SoptDataStore @Inject constructor(
     fun setAutoLogin(value: Boolean) {
         sharedPreferences.edit()
             .putBoolean(AUTO_LOGIN, value)
-            .apply()
+            .commit()
     }
 
     fun setLogout() {
         sharedPreferences.edit()
             .remove(AUTO_LOGIN)
             .clear()
-            .apply()
+            .commit()
     }
 }

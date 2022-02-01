@@ -16,7 +16,7 @@ class AuthRepositoryImpl @Inject constructor(
 ) : AuthRepository {
     override suspend fun login(id: String, pw: String): Auth? {
         val result = runCatching {
-            service.postLogin(RequestLogin(id, pw))
+            service.login(RequestLogin(id, pw))
         }.onSuccess {
             it.data?.name?.let { sharedPreferences.setName(it) }
         }.getOrNull()
@@ -26,7 +26,7 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun signUp(name: String, id: String, pw: String) : Boolean{
         runCatching {
-            service.postSignUp(RequestSignUp(name, id, pw))
+            service.signUp(RequestSignUp(name, id, pw))
         }.fold({
             return true
         },{

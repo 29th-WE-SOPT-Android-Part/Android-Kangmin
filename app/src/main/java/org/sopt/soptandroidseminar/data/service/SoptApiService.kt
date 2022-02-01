@@ -11,8 +11,8 @@ import retrofit2.http.POST
 
 interface SoptApiService {
     @POST("user/signup")
-    suspend fun postSignUp(@Body body: RequestSignUp): BaseResponse<ResponseSignUp>
+    suspend fun signUp(@Body body: RequestSignUp): BaseResponse<ResponseSignUp>
 
     @POST("user/login")
-    suspend fun postLogin(@Body body: RequestLogin): BaseResponse<ResponseLogin>
+    suspend fun login(@Body body: RequestLogin): BaseResponse<ResponseLogin>
 }
