@@ -1,7 +1,7 @@
-package org.sopt.soptandroidseminar.api
+package org.sopt.soptandroidseminar.data.service
 
-import org.sopt.soptandroidseminar.api.data.response.ResponseRepo
-import org.sopt.soptandroidseminar.api.data.response.ResponseUser
+import org.sopt.soptandroidseminar.data.response.ResponseRepo
+import org.sopt.soptandroidseminar.data.response.ResponseUser
 import retrofit2.Call
 import retrofit2.http.GET
 

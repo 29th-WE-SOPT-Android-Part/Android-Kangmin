@@ -1,6 +1,6 @@
-package org.sopt.soptandroidseminar.api.data.response
+package org.sopt.soptandroidseminar.data.response
 
-data class ResponseWrapper<T>(
+data class BaseResponse<T>(
     val status: Int,
     val success: Boolean,
     val message: String,

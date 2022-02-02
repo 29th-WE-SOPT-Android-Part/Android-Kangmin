@@ -1,4 +1,4 @@
-package org.sopt.soptandroidseminar.view.signup
+package org.sopt.soptandroidseminar.util
 
 import android.util.Log
 import androidx.annotation.MainThread

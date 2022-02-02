@@ -1,4 +1,4 @@
-package org.sopt.soptandroidseminar.api.data
+package org.sopt.soptandroidseminar.data
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

@@ -1,4 +1,4 @@
-package org.sopt.soptandroidseminar.api.data.request
+package org.sopt.soptandroidseminar.data.request
 
 data class RequestLogin(
     val email: String,

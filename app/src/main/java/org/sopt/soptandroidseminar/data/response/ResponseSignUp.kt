@@ -1,4 +1,4 @@
-package org.sopt.soptandroidseminar.api.data.response
+package org.sopt.soptandroidseminar.data.response
 
 data class ResponseSignUp(
     val email: String,
