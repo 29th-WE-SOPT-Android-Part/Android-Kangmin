@@ -6,7 +6,7 @@
     <data>
         <variable
             name="repo"
-            type="org.sopt.soptandroidseminar.data.response.ResponseRepo" />
+            type="org.sopt.soptandroidseminar.domain.entity.GithubRepo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
