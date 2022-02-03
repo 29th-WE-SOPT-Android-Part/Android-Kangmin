@@ -25,7 +25,7 @@ class ProfileViewModel @Inject constructor(private val service: GithubApiService
     fun profileImage() {
         viewModelScope.launch {
             runCatching {
-                service.getUserInfo()
+                service.userInfo()
             }.onSuccess {
                 _imageUrl.value = it.avatar_url
             }

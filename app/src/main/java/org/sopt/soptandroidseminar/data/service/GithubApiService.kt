@@ -12,7 +12,7 @@ interface GithubApiService {
 
     @Headers("Authorization: token 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")
     @GET("users/kkk5474096")
-    suspend fun getUserInfo(): ResponseUser
+    suspend fun userInfo(): ResponseUser
 
     @Headers("Authorization: token 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")
     @GET("users/kkk5474096/followers")
