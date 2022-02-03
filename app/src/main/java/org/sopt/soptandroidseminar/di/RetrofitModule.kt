@@ -5,11 +5,16 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
+import javax.inject.Inject
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -25,15 +30,36 @@ object RetrofitModule {
     @Retention(AnnotationRetention.BINARY)
     annotation class SoptRetrofit
 
+//    @Provides
+//    @Singleton
+//    fun provideOkHttpClient(): OkHttpClient {
+//        val loggingInterceptor = HttpLoggingInterceptor()
+//        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+//
+//        return OkHttpClient.Builder()
+//            .addInterceptor(loggingInterceptor)
+//            .build()
+//    }
+
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+    fun provideOkHttpClient(
+        interceptor: AppInterceptor
+    ): OkHttpClient = OkHttpClient.Builder()
+        .run {
+            addInterceptor(interceptor)
+            build()
+        }
 
-        return OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .build()
+    class AppInterceptor @Inject constructor() : Interceptor {
+        @Throws(IOException::class)
+        override fun intercept(chain: Interceptor.Chain)
+                : Response = with(chain) {
+            val newRequest = request().newBuilder()
+                .addHeader("Authorization", "Token "+ "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")
+                .build()
+            proceed(newRequest)
+        }
     }
 
     @Provides
@@ -54,9 +80,8 @@ object RetrofitModule {
     @Provides
     @Singleton
     @SoptRetrofit
-    fun provideSoptRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
+    fun provideSoptRetrofit(gson: Gson): Retrofit {
         return Retrofit.Builder()
-            .client(okHttpClient)
             .baseUrl(BASE_URL_SOPT)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
