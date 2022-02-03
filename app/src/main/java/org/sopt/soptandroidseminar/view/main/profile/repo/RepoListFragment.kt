@@ -1,11 +1,8 @@
 package org.sopt.soptandroidseminar.view.main.profile.repo
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptandroidseminar.R
 import org.sopt.soptandroidseminar.adapter.RepoListAdapter
@@ -24,7 +21,6 @@ class RepoListFragment : BindingFragment<FragmentRepoListBinding>(R.layout.fragm
 
     private fun initAdapter() {
         adapter = RepoListAdapter()
-        binding.recyclerRepoList.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.recyclerRepoList.adapter = adapter
         repoList()
     }
