@@ -30,17 +30,6 @@ object RetrofitModule {
     @Retention(AnnotationRetention.BINARY)
     annotation class SoptRetrofit
 
-//    @Provides
-//    @Singleton
-//    fun provideOkHttpClient(): OkHttpClient {
-//        val loggingInterceptor = HttpLoggingInterceptor()
-//        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-//
-//        return OkHttpClient.Builder()
-//            .addInterceptor(loggingInterceptor)
-//            .build()
-//    }
-
     @Provides
     @Singleton
     fun provideOkHttpClient(
