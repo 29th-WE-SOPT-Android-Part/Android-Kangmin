@@ -13,6 +13,7 @@ import org.sopt.soptandroidseminar.databinding.FragmentFollwerListBinding
 import org.sopt.soptandroidseminar.util.BindingFragment
 import org.sopt.soptandroidseminar.util.VerticalItemDecoration
 import org.sopt.soptandroidseminar.view.main.profile.detail.DetailActivity
+import org.sopt.soptandroidseminar.view.showToast
 
 @AndroidEntryPoint
 class FollowerListFragment :
@@ -24,6 +25,7 @@ class FollowerListFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
+        initObserver()
     }
 
     private fun initAdapter() {
@@ -43,10 +45,15 @@ class FollowerListFragment :
 
     private fun followingList() {
         viewModel.followingList()
+    }
+
+    private fun initObserver() {
         viewModel.followList.observe(viewLifecycleOwner) {
             adapter?.submitList(it)
         }
-
+        viewModel.serverConnect.observe(viewLifecycleOwner) {
+            requireContext().showToast("서버연결 실패")
+        }
     }
 
     private fun recyclerViewDecoration() {
