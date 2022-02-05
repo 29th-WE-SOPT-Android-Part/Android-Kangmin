@@ -8,7 +8,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.sopt.soptandroidseminar.data.service.GithubApiService
 import org.sopt.soptandroidseminar.util.SingleLiveEvent
-import retrofit2.await
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,7 +25,7 @@ class ProfileViewModel @Inject constructor(private val service: GithubApiService
     fun profileImage() {
         viewModelScope.launch {
             runCatching {
-                service.getUserInfo().await()
+                service.userInfo()
             }.onSuccess {
                 _imageUrl.value = it.avatar_url
             }

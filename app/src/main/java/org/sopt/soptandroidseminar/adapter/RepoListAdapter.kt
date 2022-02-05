@@ -1,15 +1,14 @@
 package org.sopt.soptandroidseminar.adapter
 
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import org.sopt.soptandroidseminar.data.response.ResponseRepo
 import org.sopt.soptandroidseminar.databinding.ItemRepoListBinding
+import org.sopt.soptandroidseminar.domain.entity.GithubRepo
 
-class RepoListAdapter : ListAdapter<ResponseRepo, RepoListAdapter.RepoViewHolder>(DIFFUTIL) {
+class RepoListAdapter : ListAdapter<GithubRepo, RepoListAdapter.RepoViewHolder>(DIFFUTIL) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -27,23 +26,23 @@ class RepoListAdapter : ListAdapter<ResponseRepo, RepoListAdapter.RepoViewHolder
     class RepoViewHolder(
         private val binding: ItemRepoListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(gitHubRepoInfo: ResponseRepo) {
-            binding.repo = gitHubRepoInfo
+        fun onBind(gitHubRepo: GithubRepo) {
+            binding.repo = gitHubRepo
         }
     }
 
     companion object {
-        private val DIFFUTIL = object : DiffUtil.ItemCallback<ResponseRepo>() {
+        private val DIFFUTIL = object : DiffUtil.ItemCallback<GithubRepo>() {
             override fun areItemsTheSame(
-                oldItem: ResponseRepo,
-                newItem: ResponseRepo
+                oldItem: GithubRepo,
+                newItem: GithubRepo
             ): Boolean {
                 return oldItem.name == newItem.name
             }
 
             override fun areContentsTheSame(
-                oldItem: ResponseRepo,
-                newItem: ResponseRepo
+                oldItem: GithubRepo,
+                newItem: GithubRepo
             ): Boolean {
                 return oldItem == newItem
             }
