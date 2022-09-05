@@ -126,3 +126,5 @@ class BoardingActivity: AppCompatActivity() {
 navigation의 label과 Toolbar를 연동하여 title의 내용을 구현했습니다.
 
 - 배운 내용 : navigation을 활용한 온보딩에 대해 배울 수 있었습니다.
+
+### 2022년 2월 리팩토링
